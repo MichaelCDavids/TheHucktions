@@ -17,24 +17,7 @@ public class FakeValueService {
 
 
     public static void main(String[] args) {
-
-        createFakePlayers(22);
-//
-//        String streetName = faker.address().streetName();
-//        String number = faker.address().buildingNumber();
-//        String city = faker.address().city();
-//        String country = faker.address().country();
-
-
-//        System.out.println(String.format("%s\n%s\n%s\n%s\n%s\n%s\n%s",
-//                first_name,
-//                last_name,
-//                email,
-//                age,
-//                weight,
-//                height,
-//                postition
-//        ));
+        createFakePlayers(1);
     }
 
     static Jdbi getJdbiDatabaseConnection(String defaultJdbcUrl) throws URISyntaxException, SQLException {
@@ -72,6 +55,15 @@ public class FakeValueService {
                 double height = (double) faker.random().nextInt(1, 2);
                 String postition = postions[faker.random().nextInt(0, 3)];
                 Player newPlayer = new Player(first_name, last_name, email, age, postition, weight, height);
+                System.out.println(String.format("%s\n%s\n%s\n%s\n%s\n%s\n%s",
+                        first_name,
+                        last_name,
+                        email,
+                        age,
+                        weight,
+                        height,
+                        postition
+                ));
                 ManagementServices managementServices = new Management(new ManagementQueries(jdbi));
                 managementServices.insertPlayerRecord(newPlayer);
             }
@@ -83,6 +75,5 @@ public class FakeValueService {
 
 
     }
-
 
 }

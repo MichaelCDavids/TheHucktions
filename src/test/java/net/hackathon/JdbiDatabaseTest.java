@@ -1,15 +1,18 @@
 package net.hackathon;
+
 import org.jdbi.v3.core.Jdbi;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class JdbiDatabaseTest {
 
     Jdbi jdbi = Jdbi.create("jdbc:postgresql://localhost/hucktion_db?user=mike&password=mike123");
+
     @BeforeEach
     void beforeEach() {
         jdbi.withHandle(h -> {
@@ -81,6 +84,5 @@ public class JdbiDatabaseTest {
         assertEquals("Name three", people.get(1).getFirstName());
         assertEquals("LastName three", people.get(1).getLastName());
     }
-
 
 }
