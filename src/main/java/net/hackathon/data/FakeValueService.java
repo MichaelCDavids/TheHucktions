@@ -17,7 +17,7 @@ public class FakeValueService {
 
 
     public static void main(String[] args) {
-        createFakePlayers(1);
+        createFakePlayers(100);
     }
 
     static Jdbi getJdbiDatabaseConnection(String defaultJdbcUrl) throws URISyntaxException, SQLException {
@@ -49,21 +49,12 @@ public class FakeValueService {
             for (int i = 0; i < numberOfPlayers; i++) {
                 String first_name = faker.name().firstName();
                 String last_name = faker.name().lastName();
-                String email = first_name + last_name + "@gmail.com";
+                String email = first_name.toLowerCase() + last_name.toLowerCase() + "@gmail.com";
                 int age = faker.random().nextInt(17, 35);
-                double weight = (double) faker.random().nextInt(50, 85);
-                double height = (double) faker.random().nextInt(1, 2);
+                double weight = (double) (faker.random().nextInt(50, 85)/3)*2.98;
+                double height = (double) faker.random().nextInt(1, 2)*1.25;
                 String postition = postions[faker.random().nextInt(0, 3)];
                 Player newPlayer = new Player(first_name, last_name, email, age, postition, weight, height);
-                System.out.println(String.format("%s\n%s\n%s\n%s\n%s\n%s\n%s",
-                        first_name,
-                        last_name,
-                        email,
-                        age,
-                        weight,
-                        height,
-                        postition
-                ));
                 ManagementServices managementServices = new Management(new ManagementQueries(jdbi));
                 managementServices.insertPlayerRecord(newPlayer);
             }

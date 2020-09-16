@@ -71,24 +71,10 @@ public class App {
 
             }, new HandlebarsTemplateEngine());
 
-            post("/person", (req, res) -> {
-
-                String firstName = req.queryParams("firstName");
-                String lastName = req.queryParams("lastName");
-                String email = req.queryParams("email");
-
-                jdbi.useHandle(h -> {
-                    h.execute("insert into users (firstName, lastName, email) values (?, ?, ?)",
-                            firstName,
-                            lastName,
-                            email);
-                });
-
-                res.redirect("/");
-                return "";
-            });
 
             get("/players", (req, res) -> {
+
+
 
                 Map<String, Object> map = new HashMap<>();
 //                map.put("people", people);
@@ -125,6 +111,22 @@ public class App {
 
             }, new HandlebarsTemplateEngine());
 
+            post("/person", (req, res) -> {
+
+                String firstName = req.queryParams("firstName");
+                String lastName = req.queryParams("lastName");
+                String email = req.queryParams("email");
+
+                jdbi.useHandle(h -> {
+                    h.execute("insert into users (firstName, lastName, email) values (?, ?, ?)",
+                            firstName,
+                            lastName,
+                            email);
+                });
+
+                res.redirect("/");
+                return "";
+            });
 
         } catch (Exception ex) {
             ex.printStackTrace();
