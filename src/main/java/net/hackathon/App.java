@@ -1,5 +1,8 @@
 package net.hackathon;
 
+import net.hackathon.services.Management;
+import net.hackathon.services.ManagementQueries;
+import net.hackathon.services.ManagementServices;
 import org.jdbi.v3.core.Jdbi;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -20,10 +23,10 @@ public class App {
         if (processBuilder.environment().get("PORT") != null) {
             return Integer.parseInt(processBuilder.environment().get("PORT"));
         }
-        return 4567;
+        return 4568;
     }
 
-    static Jdbi getJdbiDatabaseConnection(String defualtJdbcUrl) throws URISyntaxException, SQLException {
+    static Jdbi getJdbiDatabaseConnection(String defaultJdbcUrl) throws URISyntaxException, SQLException {
         ProcessBuilder processBuilder = new ProcessBuilder();
         String database_url = processBuilder.environment().get("DATABASE_URL");
         if (database_url != null) {
@@ -42,7 +45,7 @@ public class App {
             return Jdbi.create(url, username, password);
         }
 
-        return Jdbi.create(defualtJdbcUrl);
+        return Jdbi.create(defaultJdbcUrl);
 
     }
 
@@ -53,17 +56,15 @@ public class App {
             staticFiles.location("/public");
             port(getHerokuAssignedPort());
 
-            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/spark_hbs_jdbi?user=mike&password=mike123");
+            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/hucktion_db?user=mike&password=mike123");
+
+            ManagementServices managementServices = new Management(new ManagementQueries(jdbi));
+
 
             get("/", (req, res) -> {
 
-                List<Person> people = jdbi.withHandle((h) -> {
-                    List<Person> thePeople = h.createQuery("select first_name, last_name, email from users")
-                            .mapToBean(Person.class)
-                            .list();
-                    return thePeople;
-                });
-
+                List<Player> people = managementServices.getAllPlayers();
+//                Player player = managementServices.getPlayerRecord(1);
 
                 Map<String, Object> map = new HashMap<>();
                 map.put("people", people);
@@ -76,22 +77,22 @@ public class App {
             }, new HandlebarsTemplateEngine());
 
 
-            post("/person", (req, res) -> {
-
-                String firstName = req.queryParams("firstName");
-                String lastName = req.queryParams("lastName");
-                String email = req.queryParams("email");
-
-                jdbi.useHandle(h -> {
-                    h.execute("insert into users (first_name, last_name, email) values (?, ?, ?)",
-                            firstName,
-                            lastName,
-                            email);
-                });
-
-                res.redirect("/");
-                return "";
-            });
+//            post("/person", (req, res) -> {
+//
+//                String firstName = req.queryParams("firstName");
+//                String lastName = req.queryParams("lastName");
+//                String email = req.queryParams("email");
+//
+//                jdbi.useHandle(h -> {
+//                    h.execute("insert into users (first_name, last_name, email) values (?, ?, ?)",
+//                            firstName,
+//                            lastName,
+//                            email);
+//                });
+//
+//                res.redirect("/");
+//                return "";
+//            });
 
         } catch (Exception ex) {
             ex.printStackTrace();

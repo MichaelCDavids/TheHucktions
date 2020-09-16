@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class JdbiDatabaseTest {
 
-    Jdbi jdbi = Jdbi.create("jdbc:postgresql://localhost/spark_hbs_jdbi?user=mike&password=mike123");
+    Jdbi jdbi = Jdbi.create("jdbc:postgresql://localhost/hucktion_db?user=mike&password=mike123");
     @BeforeEach
     void beforeEach() {
         jdbi.withHandle(h -> {
@@ -66,13 +66,13 @@ public class JdbiDatabaseTest {
 
         final String INSERT_USER = "insert into users (first_name, last_name, email) values (?, ?, ?)";
 
-        List<Person> people = jdbi.withHandle(h -> {
+        List<Player> people = jdbi.withHandle(h -> {
             h.execute(INSERT_USER, "Name two", "LastName one", "Email one");
             h.execute(INSERT_USER, "Name three", "LastName three", "Email one");
             h.execute(INSERT_USER, "Name four", "LastName four", "Email one");
 
-            List<Person> listPerson = h.createQuery("select first_name, last_name, email from users")
-                    .mapToBean(Person.class)
+            List<Player> listPerson = h.createQuery("select first_name, last_name, email from users")
+                    .mapToBean(Player.class)
                     .list();
             return listPerson;
         });
