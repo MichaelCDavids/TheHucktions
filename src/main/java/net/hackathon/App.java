@@ -53,7 +53,7 @@ public class App {
             staticFiles.location("/public");
             port(getHerokuAssignedPort());
 
-            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/spark_hbs_jdbi?user=mike&password=mike123");
+            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/hucktion_db?user=codex&password=codex123");
 
             get("/", (req, res) -> {
 
