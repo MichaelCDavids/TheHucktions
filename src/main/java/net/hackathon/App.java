@@ -48,17 +48,15 @@ public class App {
 
     public static void main(String[] args) {
         try {
-
-
             staticFiles.location("/public");
             port(getHerokuAssignedPort());
 
-            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/spark_hbs_jdbi?user=mike&password=mike123");
+            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/spark_hbs_jdbi?user=thando&password=thando123");
 
             get("/", (req, res) -> {
 
                 List<Person> people = jdbi.withHandle((h) -> {
-                    List<Person> thePeople = h.createQuery("select first_name, last_name, email from users")
+                    List<Person> thePeople = h.createQuery("select firstName, lastName, email from users")
                             .mapToBean(Person.class)
                             .list();
                     return thePeople;
@@ -83,7 +81,7 @@ public class App {
                 String email = req.queryParams("email");
 
                 jdbi.useHandle(h -> {
-                    h.execute("insert into users (first_name, last_name, email) values (?, ?, ?)",
+                    h.execute("insert into users (firstName, lastName, email) values (?, ?, ?)",
                             firstName,
                             lastName,
                             email);
@@ -92,6 +90,66 @@ public class App {
                 res.redirect("/");
                 return "";
             });
+
+
+            get("/players", (req, res) -> {
+
+//                List<Person> people = jdbi.withHandle((h) -> {
+//                    List<Person> thePeople = h.createQuery("select firstName, lastName, email from users")
+//                            .mapToBean(Person.class)
+//                            .list();
+//                    return thePeople;
+//                });
+//
+//
+                Map<String, Object> map = new HashMap<>();
+//                map.put("people", people);
+//                map.put("data", "[2, 19, 3, 5, 2, 23]");
+//                map.put("theGraphLabel", "The graph label");
+//                map.put("labels", "['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']");
+
+                return new ModelAndView(map, "players.handlebars");
+
+            }, new HandlebarsTemplateEngine());
+
+
+            get("/add", (req, res) -> {
+
+//                List<Person> people = jdbi.withHandle((h) -> {
+//                    List<Person> thePeople = h.createQuery("select firstName, lastName, email from users")
+//                            .mapToBean(Person.class)
+//                            .list();
+//                    return thePeople;
+//                });
+//
+//
+                Map<String, Object> map = new HashMap<>();
+//                map.put("people", people);
+//                map.put("data", "[2, 19, 3, 5, 2, 23]");
+//                map.put("theGraphLabel", "The graph label");
+//                map.put("labels", "['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']");
+
+                return new ModelAndView(map, "registerplayer.handlebars");
+
+            }, new HandlebarsTemplateEngine());
+
+
+            post("/add", (req, res) -> {
+                System.out.println(req.queryParams("name"));
+                System.out.println(req.queryParams("surname"));
+                System.out.println(req.queryParams("email"));
+                System.out.println(req.queryParams("age"));
+                System.out.println(req.queryParams("height"));
+                System.out.println(req.queryParams("weight"));
+                System.out.println(req.queryParams("position"));
+
+                Map<String, Object> map = new HashMap<>();
+                return new ModelAndView(map, "registerplayer.handlebars");
+
+            }, new HandlebarsTemplateEngine());
+
+
+
 
         } catch (Exception ex) {
             ex.printStackTrace();
