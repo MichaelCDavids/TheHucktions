@@ -20,7 +20,7 @@ public class App {
         if (processBuilder.environment().get("PORT") != null) {
             return Integer.parseInt(processBuilder.environment().get("PORT"));
         }
-        return 4567;
+        return 4568;
     }
 
     static Jdbi getJdbiDatabaseConnection(String defualtJdbcUrl) throws URISyntaxException, SQLException {
@@ -53,7 +53,7 @@ public class App {
             staticFiles.location("/public");
             port(getHerokuAssignedPort());
 
-            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/spark_hbs_jdbi?user=mike&password=mike123");
+            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/hucktion_db?user=codex&password=codex123");
 
             get("/", (req, res) -> {
 
