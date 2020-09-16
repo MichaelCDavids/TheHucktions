@@ -54,8 +54,12 @@ public class App {
             staticFiles.location("/public");
             port(getHerokuAssignedPort());
 
+<<<<<<< HEAD
             Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/hucktion_db?user=mike&password=mike123");
             ManagementServices managementServices = new Management(new ManagementQueries(jdbi));
+=======
+            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/hucktion_db?user=codex&password=codex123");
+>>>>>>> 4b034e2db021c6a9b8937d6bbd9608b5cff35920
 
             get("/", (req, res) -> {
                 List<Player> people = managementServices.getAllPlayers();
