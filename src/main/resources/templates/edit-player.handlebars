@@ -1,0 +1,97 @@
+
+{{> header.handlebars}}
+
+<div class="jumbotron jumbotron-fluid" style="">
+    <div class="container">
+    {{#with player}}
+        <div class="row">
+            <div class="col-sm"> </div>
+            <div class="col-sm">
+
+                <div class="card" style="width: 40rem;">
+                    <div class="card-header">
+                        Updating {{firstName}} {{lastName}} details:
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="/edit/{{id}}">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" name="name" placeholder="name" value="{{firstName}}">
+                                </div>
+                                <div class="col">
+                                    <label for="surname">Surname</label>
+                                    <input type="text" class="form-control" name="surname" placeholder="surname" value="{{lastName}}">
+                                </div>
+                            </div> <br>
+
+                            <div class="row">
+                                <div class="col">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" name="email" value="{{email}}">
+                                </div>
+                                <div class="col">
+                                    <label for="age">Age</label>
+                                    <input type="text" class="form-control" name="age" value="{{age}}">
+                                </div>
+                            </div><br>
+
+                            <div class="row">
+                                <div class="col">
+                                    <label for="weight">Weight</label>
+                                    <input type="text" class="form-control" name="weight" value="{{weight}}">
+                                </div>
+
+                                <div class="col">
+                                    <label for="age">Height</label>
+                                    <input type="text" class="form-control" name="height" value="{{height}}">
+                                </div>
+                            </div> <br>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="weight">Red cards</label>
+                                    <input type="text" class="form-control" name="redCards" value="{{redCards}}">
+                                </div>
+
+                                <div class="col">
+                                    <label for="age">Yellow cards</label>
+                                    <input type="text" class="form-control" name="yellowCards" value="{{yellowCards}}">
+                                </div>
+                            </div> <br>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="position">Position</label>
+                                        <div class="form-group">
+                                            <select class="form-control" name="position">
+                                                <option>GK</option>
+                                                <option>DF</option>
+                                                <option>MF</option>
+                                                <option>FWD</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <label for="weight">Goals</label>
+                                    <input type="text" class="form-control" name="goals" value="{{goals}}">
+                                </div>
+                            </div> <br>
+
+                            <button type="submit" class="btn btn-primary mr-3">Update</button>
+                            <a href="/delete/{{id}}" type="button" class="btn btn-danger">delete</a>
+
+                        </form>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="col-sm"> </div>
+        </div>
+    {{/with}}
+    </div>
+</div>

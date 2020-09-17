@@ -11,10 +11,10 @@ public class Player {
     private String fieldPosition;
     private double weight;
     private double height;
-
-    private int yellowCards;
     private int redCards;
+    private int yellowCards;
     private int goals;
+
     private int assists;
     private int cleanSheets;
 
@@ -30,10 +30,6 @@ public class Player {
         this.fieldPosition = fieldPosition;
         this.weight = weight;
         this.height = height;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getEmail() {
@@ -68,8 +64,6 @@ public class Player {
         this.age = age;
     }
 
-
-
     public double getWeight() {
         return weight;
     }
@@ -88,6 +82,10 @@ public class Player {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getFieldPosition() {
@@ -114,6 +112,7 @@ public class Player {
         this.redCards = redCards;
     }
 
+
     public int getGoals() {
         return goals;
     }
@@ -137,4 +136,5 @@ public class Player {
     public void setCleanSheets(int cleanSheets) {
         this.cleanSheets = cleanSheets;
     }
+
 }

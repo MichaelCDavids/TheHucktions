@@ -9,21 +9,22 @@ import java.util.List;
 public interface ManagementServices {
 
     boolean insertPlayerRecord(Player player);
-    Player getPlayerRecord(int id);
-    List<Player> getAllPlayers();
+    boolean insertMatchRecord(Match match);
     boolean insertBookingRecord(Bookings bookings);
-    List<Bookings> getAllBooking();
-    List<Player> getSelectedPlayers();
 
+    List<Player> getAllPlayers();
+    Player getPlayerRecord(int id);
+    List<Player> getSelectedPlayers();
+    Bookings getBookingRecord(int id);
+    List<Match> getAllMatch();
+    List<Bookings> getAllBooking();
+    Match getMatchRecord(int id);
 
     boolean updatePlayerRecord(int id, Player player);
-    boolean deletePlayerRecord(int id);
-    Bookings getBookingRecord(int id);
     boolean updateBookingRecord(int id, Bookings bookings);
-    boolean deleteBookingRecord(int id);
-    boolean insertMatchRecord(Match match);
-    Match getMatchRecord(int id);
     boolean updateMatchRecord(int id, Match match);
+
+    boolean deletePlayerRecord(int id);
+    boolean deleteBookingRecord(int id);
     boolean deleteMatchRecord(int id);
-    List<Match> getAllMatch();
 }
