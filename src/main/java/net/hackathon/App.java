@@ -1,8 +1,5 @@
 package net.hackathon;
 
-import net.hackathon.services.Management;
-import net.hackathon.services.ManagementQueries;
-import net.hackathon.services.ManagementServices;
 import org.jdbi.v3.core.Jdbi;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -54,7 +51,7 @@ public class App {
             staticFiles.location("/public");
             port(getHerokuAssignedPort());
 
-            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/hucktion_db?user=codex&password=codex123");
+            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/hucktion_db?user=mike&password=mike123");
             ManagementServices managementServices = new Management(new ManagementQueries(jdbi));
 
             get("/", (req, res) -> {
@@ -78,6 +75,7 @@ public class App {
             }, new HandlebarsTemplateEngine());
 
             get("/fixtures", (req, res) -> {
+
                 Map<String, Object> map = new HashMap<>();
                 return new ModelAndView(map, "fixtures.handlebars");
             }, new HandlebarsTemplateEngine());
@@ -91,7 +89,13 @@ public class App {
                 List<Player> players = managementServices.getAllPlayers();
 
                 for (Player p : players) {
+                    System.out.println(p.getAge());
                     System.out.println(p.getEmail());
+                    System.out.println(p.getFirstName());
+                    System.out.println(p.getLastName());
+                    System.out.println(p.getFieldPosition());
+                    System.out.println(p.getHeight());
+                    System.out.println(p.getWeight());
                 }
 
                 Map<String, Object> map = new HashMap<>();
@@ -101,10 +105,68 @@ public class App {
 
             }, new HandlebarsTemplateEngine());
 
+            get("/players", (req, res) -> {
+                List<Player> players = managementServices.getAllPlayers();
+
+                for (Player p : players) {
+                    System.out.println(p.getAge());
+                    System.out.println(p.getEmail());
+                    System.out.println(p.getFirstName());
+                    System.out.println(p.getLastName());
+                    System.out.println(p.getFieldPosition());
+                    System.out.println(p.getHeight());
+                    System.out.println(p.getWeight());
+                }
+
+                Map<String, Object> map = new HashMap<>();
+                map.put("players", players);
+                //System.out.println(players.);
+                return new ModelAndView(map, "players.handlebars");
+
+            }, new HandlebarsTemplateEngine());
+
+            get("/select", (req, res) -> {
+                List<Player> players = managementServices.getAllPlayers();
+
+                for (Player p : players) {
+                    System.out.println(p.getAge());
+                    System.out.println(p.getEmail());
+                    System.out.println(p.getFirstName());
+                    System.out.println(p.getLastName());
+                    System.out.println(p.getFieldPosition());
+                    System.out.println(p.getHeight());
+                    System.out.println(p.getWeight());
+                }
+
+                Map<String, Object> map = new HashMap<>();
+                map.put("players", players);
+                return new ModelAndView(map, "select.handlebars");
+
+            }, new HandlebarsTemplateEngine());
+
+            get("/selected", (req, res) -> {
+                List<Player> players = managementServices.getSelectedPlayers();
+
+                for (Player p : players) {
+                    System.out.println(p.getAge());
+                    System.out.println(p.getEmail());
+                    System.out.println(p.getFirstName());
+                    System.out.println(p.getLastName());
+                    System.out.println(p.getFieldPosition());
+                    System.out.println(p.getHeight());
+                    System.out.println(p.getWeight());
+                }
+
+                Map<String, Object> map = new HashMap<>();
+                map.put("players", players);
+                //System.out.println(players.);
+                return new ModelAndView(map, "selected.handlebars");
+
+            }, new HandlebarsTemplateEngine());
+
             get("/add", (req, res) -> {
                 Map<String, Object> map = new HashMap<>();
-
-                return new ModelAndView(map, "registerplayer.handlebars");
+                return new ModelAndView(map, "register.handlebars");
 
             }, new HandlebarsTemplateEngine());
 
@@ -118,7 +180,7 @@ public class App {
             get("/edit/:id", (req, res) -> {
                 Player player = managementServices.getPlayerRecord(Integer.parseInt(req.params("id")));
 
-                System.out.println(player.getPosition());
+                System.out.println(player.getFieldPosition());
                 String name = player.getFirstName();
                 Map<String, Object> map = new HashMap<>();
                 map.put("player", player);
@@ -126,6 +188,13 @@ public class App {
 
                 return new ModelAndView(map, "editPlayer.handlebars");
 
+            }, new HandlebarsTemplateEngine());
+
+            get("/bookings", (req, res) -> {
+                List<Bookings> bookings = managementServices.getAllBooking();
+                Map<String, Object> map = new HashMap<>();
+                map.put("bookings", bookings);
+                return new ModelAndView(map, "bookings.handlebars");
             }, new HandlebarsTemplateEngine());
 
             post("/add", (req, res) -> {
@@ -141,12 +210,20 @@ public class App {
                 player.setAge(Integer.parseInt(req.queryParams("age")));
                 player.setHeight(Double.parseDouble(req.queryParams("height")));
                 player.setWeight(Double.parseDouble(req.queryParams("weight")));
-                player.setPosition(req.queryParams("position"));
+                player.setFieldPosition(req.queryParams("position"));
 
                 managementServices.insertPlayerRecord(player);
 
                 Map<String, Object> map = new HashMap<>();
-                return new ModelAndView(map, "registerplayer.handlebars");
+                return new ModelAndView(map, "register.handlebars");
+
+            }, new HandlebarsTemplateEngine());
+
+            post("/save", (req, res) -> {
+                System.out.println(req.body());
+
+                Map<String, Object> map = new HashMap<>();
+                return new ModelAndView(map, "staff.handlebars");
 
             }, new HandlebarsTemplateEngine());
 

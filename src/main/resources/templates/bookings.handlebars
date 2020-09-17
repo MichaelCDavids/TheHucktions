@@ -1,0 +1,43 @@
+{{> header.handlebars}}
+<div class="jumbotron jumbotron-fluid" style="">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <div class="card" style="width:100%;">
+                    <div class="card-header row justify-content-between">
+                        <div class="">
+                            Players Booking Table
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="/add">
+                            <div class="row">
+                                <table class="table table-bordered text-center">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Surname</th>
+                                        <th scope="col">Position</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {{#each bookings}}
+                                        <tr>
+                                            <td>{{firstName}}</td>
+                                            <td>{{lastName}}</td>
+                                            <th>{{fieldPosition}}</th>
+                                        </tr>
+                                    {{/each}}
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <br>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

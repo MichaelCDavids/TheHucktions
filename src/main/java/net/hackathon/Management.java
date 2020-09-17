@@ -1,8 +1,4 @@
-package net.hackathon.services;
-
-import net.hackathon.Bookings;
-import net.hackathon.Match;
-import net.hackathon.Player;
+package net.hackathon;
 
 import java.util.List;
 
@@ -63,6 +59,11 @@ public class Management implements ManagementServices {
     @Override
     public List<Bookings> getAllBooking() {
         return managementQueries.getAllBookings();
+    }
+
+    @Override
+    public List<Player> getSelectedPlayers() {
+        return managementQueries.getSelectedPlayers();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package net.hackathon.services;
+package net.hackathon;
 
 import net.hackathon.Bookings;
 import net.hackathon.Player;
@@ -10,18 +10,17 @@ public interface ManagementServices {
 
     boolean insertPlayerRecord(Player player);
     Player getPlayerRecord(int id);
+    List<Player> getAllPlayers();
+    boolean insertBookingRecord(Bookings bookings);
+    List<Bookings> getAllBooking();
+    List<Player> getSelectedPlayers();
+
+
     boolean updatePlayerRecord(int id, Player player);
     boolean deletePlayerRecord(int id);
-    List<Player> getAllPlayers();
-
-
-    boolean insertBookingRecord(Bookings bookings);
     Bookings getBookingRecord(int id);
     boolean updateBookingRecord(int id, Bookings bookings);
     boolean deleteBookingRecord(int id);
-    List<Bookings> getAllBooking();
-
-
     boolean insertMatchRecord(Match match);
     Match getMatchRecord(int id);
     boolean updateMatchRecord(int id, Match match);

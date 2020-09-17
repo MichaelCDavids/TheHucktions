@@ -12,6 +12,12 @@ public class Player {
     private double weight;
     private double height;
 
+    private int yellowCards;
+    private int redCards;
+    private int goals;
+    private int assists;
+    private int cleanSheets;
+
     public Player() {
     }
 
@@ -62,13 +68,7 @@ public class Player {
         this.age = age;
     }
 
-    public String getPosition() {
-        return fieldPosition;
-    }
 
-    public void setPosition(String fieldPosition) {
-        this.fieldPosition = fieldPosition;
-    }
 
     public double getWeight() {
         return weight;
@@ -88,5 +88,53 @@ public class Player {
 
     public String getId() {
         return id;
+    }
+
+    public String getFieldPosition() {
+        return fieldPosition;
+    }
+
+    public void setFieldPosition(String fieldPosition) {
+        this.fieldPosition = fieldPosition;
+    }
+
+    public int getYellowCards() {
+        return yellowCards;
+    }
+
+    public void setYellowCards(int yellowCards) {
+        this.yellowCards = yellowCards;
+    }
+
+    public int getRedCards() {
+        return redCards;
+    }
+
+    public void setRedCards(int redCards) {
+        this.redCards = redCards;
+    }
+
+    public int getGoals() {
+        return goals;
+    }
+
+    public void setGoals(int goals) {
+        this.goals = goals;
+    }
+
+    public int getAssists() {
+        return assists;
+    }
+
+    public void setAssists(int assists) {
+        this.assists = assists;
+    }
+
+    public int getCleanSheets() {
+        return cleanSheets;
+    }
+
+    public void setCleanSheets(int cleanSheets) {
+        this.cleanSheets = cleanSheets;
     }
 }

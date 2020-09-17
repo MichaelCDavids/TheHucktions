@@ -1,4 +1,5 @@
 {{> header.handlebars}}
+
 <div class="jumbotron jumbotron-fluid" style="">
     <div class="container">
         <div class="row">
@@ -6,14 +7,11 @@
                 <div class="card" style="width:100%;">
                     <div class="card-header row justify-content-between">
                         <div class="">
-                            Players information & Statistics
+                            Season Statistics
                         </div>
-                        <a href="/select">
-                            <button type="button" class="btn btn-warning  right mr-3">Select Starting LineUp</button>
-                        </a>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="/add">
+                        <form method="post" action="/save">
                             <div class="row">
                                 <table class="table table-bordered text-center">
                                     <thead>
@@ -29,7 +27,8 @@
                                         <th scope="col">Goals</th>
                                         <th scope="col">Assists</th>
                                         <th scope="col">Clean Sheets</th>
-                                        <th scope="col">Edit</th>
+                                        <th scope="col">Select</th>
+                                        <!--                                                                                <th scope="col">Action</th>-->
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -46,22 +45,32 @@
                                             <td>{{goals}}</td>
                                             <td>{{assists}}</td>
                                             <td>{{cleanSheets}}</td>
+
                                             <td>
-                                                <a href="/edit/{{id}}">
-                                                    <button type="button" class="btn btn-secondary mr-3">Edit</button>
-                                                </a>
+                                                <input type="checkbox" name="selected"
+                                                       aria-label="Checkbox for following text input">
                                             </td>
+                                            <!--                                            <td>-->
+                                            <!--                                                <a href="/edit/{{id}}" type="button" class="btn btn-primary mr-3">Update</a>-->
+                                            <!--                                                <button type="button" class="btn btn-danger">RemmanagementServicesove</button>-->
+                                            <!--                                            </td>-->
                                         </tr>
                                     {{/each}}
                                     </tbody>
                                 </table>
-
                             </div>
                             <br>
 
                         </form>
                     </div>
                 </div>
+                <div class="row justify-content-around">
+                    <div>
+                        <button type="submit" class="btn btn-warning  right m-3">Save Team Selection</button>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>

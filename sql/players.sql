@@ -8,7 +8,12 @@ create table player(
 	age int not null,
 	field_position text not null,
 	weight decimal not null,
-	height decimal not null
+	height decimal not null,
+	yellow_cards int not null,
+	red_cards int not null,
+	goals int not null,
+	assists int not null,
+	clean_sheets int not null
 );
 
 create table bookings(
@@ -25,8 +30,6 @@ create table cards(
 create table selected(
     id serial not null primary key,
     player_id int not null,
-    first_name text not null,
-    last_name text not null
 );
 
 --<<<<<<< HEAD
@@ -46,14 +49,14 @@ create table matches(
     match_time date not null
 );
 
-insert into player (first_name, last_name, email, age, pos, weight, height)
-values ('Lindani', 'Pani', 'lindani@email.com', 21, 'GK', 52.5, 1.59);
+insert into player (first_name, last_name, email, age, field_position, weight, height, yellow_cards, red_cards,goals,assists,clean_sheets)
+values ('Lindani', 'Pani', 'lindani@email.com', 21, 'GK', 52.5, 1.59,0,1,2,3,4);
 
 insert into bookings (player_id, card_id) values (3, 2);
 
 insert into cards (card_name) values ('Yellow');
 insert into cards (card_name) values ('Red');
 
-insert into selected (player_id, first_name, last_name) values (1, 'Lindani', 'Pani');
+insert into selected (player_id) values (1);
 
 -->>>>>>> 26aa23bd32c1aaf1c95f1718b7319907a931e6de
