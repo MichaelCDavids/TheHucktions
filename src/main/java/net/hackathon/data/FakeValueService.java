@@ -17,7 +17,7 @@ public class FakeValueService {
 
 
     public static void main(String[] args) {
-        createFakePlayers(100);
+        createFakePlayers(1);
     }
 
     static Jdbi getJdbiDatabaseConnection(String defaultJdbcUrl) throws URISyntaxException, SQLException {

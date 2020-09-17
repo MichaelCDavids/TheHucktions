@@ -16,9 +16,13 @@
                                 <table class="table table-bordered text-center">
                                     <thead>
                                     <tr>
+                                        <th scope="col">Id</th>
                                         <th scope="col">Position</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Surname</th>
+                                        <th scope="col">Age</th>
+                                        <th scope="col">Height</th>
+                                        <th scope="col">Weight</th>
                                         <th scope="col">Yellow cards</th>
                                         <th scope="col">Red cards</th>
                                         <th scope="col">Select</th>
@@ -30,10 +34,12 @@
                                     {{#each players}}
                                         <tr>
                                             <th scope="row">{{id}}</th>
+                                            <th scope="row">{{fieldPosition}}</th>
                                             <td>{{firstName}}</td>
                                             <td>{{lastName}}</td>
-                                            <td>3</td>
-                                            <td>1</td>
+                                            <td>{{age}}</td>
+                                            <td>{{height}}</td>
+                                            <td>{{weight}}</td>
                                             <td><input type="checkbox" aria-label="Checkbox for following text input"></td>
                                             <td>
                                                 <a href="/edit/{{id}}" type="button" class="btn btn-primary mr-3">Update</a>

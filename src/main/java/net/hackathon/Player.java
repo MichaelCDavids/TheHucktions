@@ -8,19 +8,19 @@ public class Player {
     private String lastName;
     private String email;
     private int age;
-    private String pos;
+    private String fieldPosition;
     private double weight;
     private double height;
 
     public Player() {
     }
 
-    public Player(String firstName, String lastName, String email, int age, String pos, double weight, double height) {
+    public Player(String firstName, String lastName, String email, int age, String fieldPosition, double weight, double height) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.age = age;
-        this.pos = pos;
+        this.fieldPosition = fieldPosition;
         this.weight = weight;
         this.height = height;
     }
@@ -62,12 +62,12 @@ public class Player {
     }
 
     public String getPosition() {
-        System.out.println("Getting pos: " + this.pos);
-        return pos;
+        System.out.println("Getting pos: " + this.fieldPosition);
+        return fieldPosition;
     }
 
     public void setPosition(String position) {
-        this.pos = position;
+        this.fieldPosition = fieldPosition;
     }
 
     public double getWeight() {

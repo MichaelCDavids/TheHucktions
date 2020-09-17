@@ -6,7 +6,7 @@ create table player(
 	last_name text not null,
 	email text not null,
 	age int not null,
-	pos text not null,
+	field_position text not null,
 	weight decimal not null,
 	height decimal not null,
 	selected boolean null
@@ -30,9 +30,9 @@ create table selected(
     last_name text not null
 );
 
-insert into player (first_name, last_name, email, age, pos, weight, height)
+insert into player (first_name, last_name, email, age, field_position, weight, height)
 values ('Lindani', 'Pani', 'lindani@email.com', 21, 'GK', 52.5, 1.59);
-insert into player (first_name, last_name, email, age, pos, weight, height)
+insert into player (first_name, last_name, email, age, field_position, weight, height)
 values ('Sihle', 'Feni', 'sfeni@email.com', 25, 'GK', 62.5, 1.63);
-insert into player (first_name, last_name, email, age, pos, weight, height)
+insert into player (first_name, last_name, email, age, field_position, weight, height)
 values ('Phumlani', 'Wapi', 'wapi@email.com', 31, 'GK', 60.5, 1.7);

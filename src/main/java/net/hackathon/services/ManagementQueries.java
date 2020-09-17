@@ -46,7 +46,7 @@ public class ManagementQueries {
 
     public boolean insertPlayerRecord(Player player) {
         jdbi.open();
-        jdbi.useTransaction(handle -> handle.execute("insert into player (first_name,last_name,email,age,pos,weight,height) values (?,?,?,?,?,?,?)", player.getFirstName(), player.getLastName(), player.getEmail(), player.getAge(), player.getPosition(), player.getWeight(), player.getHeight()));
+        jdbi.useTransaction(handle -> handle.execute("insert into player (first_name,last_name,email,age,field_position,weight,height) values (?,?,?,?,?,?,?)", player.getFirstName(), player.getLastName(), player.getEmail(), player.getAge(), player.getPosition(), player.getWeight(), player.getHeight()));
         return true;
     }
 

@@ -91,11 +91,12 @@ public class App {
                 List<Player> players = managementServices.getAllPlayers();
 
                 for (Player p : players) {
-                    System.out.println(p.getPosition());
+                    System.out.println(p.getEmail());
                 }
+
                 Map<String, Object> map = new HashMap<>();
                 map.put("players", players);
-//System.out.println(players.);
+                //System.out.println(players.);
                 return new ModelAndView(map, "players.handlebars");
 
             }, new HandlebarsTemplateEngine());
