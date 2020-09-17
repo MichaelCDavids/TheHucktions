@@ -13,8 +13,6 @@ public class Player {
     private double height;
 
 
-    public Player() {
-    }
 
     public Player(String firstName, String lastName, String email, int age, String position, double weight, double height) {
         this.firstName = firstName;
@@ -24,6 +22,10 @@ public class Player {
         this.position = position;
         this.weight = weight;
         this.height = height;
+    }
+
+    public Player() {
+
     }
 
     public String getEmail() {

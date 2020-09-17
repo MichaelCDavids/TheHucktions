@@ -1,5 +1,7 @@
 package net.hackathon.services;
 
+import net.hackathon.Bookings;
+import net.hackathon.Match;
 import net.hackathon.Player;
 
 import java.util.List;
@@ -35,5 +37,56 @@ public class Management implements ManagementServices {
     @Override
     public List<Player> getAllPlayers() {
         return managementQueries.getAllPlayers();
+    }
+
+    @Override
+    public boolean insertBookingRecord(Bookings bookings) {
+        return managementQueries.insertBookingRecord(bookings);
+    }
+
+    @Override
+    public Bookings getBookingRecord(int id) {
+        return managementQueries.getBookingsRecord(id);
+    }
+
+    @Override
+    public boolean updateBookingRecord(int id, Bookings bookings) {
+        return managementQueries.updateBookingsRecord(id, bookings);
+    }
+
+
+    @Override
+    public boolean deleteBookingRecord(int id) {
+        return managementQueries.deleteBookingsRecord(id);
+    }
+
+    @Override
+    public List<Bookings> getAllBooking() {
+        return managementQueries.getAllBookings();
+    }
+
+    @Override
+    public boolean insertMatchRecord(Match match) {
+        return managementQueries.insertMatchRecord(match);
+    }
+
+    @Override
+    public Match getMatchRecord(int id) {
+        return managementQueries.getMatchRecord(id);
+    }
+
+    @Override
+    public boolean updateMatchRecord(int id, Match match) {
+        return managementQueries.updateMatchRecord(id, match);
+    }
+
+    @Override
+    public boolean deleteMatchRecord(int id) {
+        return managementQueries.deleteMatchRecord(id);
+    }
+
+    @Override
+    public List<Match> getAllMatch() {
+        return managementQueries.getAllMatch();
     }
 }
