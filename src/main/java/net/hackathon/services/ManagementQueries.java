@@ -17,7 +17,7 @@ public class ManagementQueries {
 
     public List<Player> getAllPlayers() {
         jdbi.open();
-        return jdbi.withHandle((h) -> h.createQuery("select first_name, last_name, email, age, field_position, weight, height from player")
+        return jdbi.withHandle((h) -> h.createQuery("select id, first_name, last_name, email, age, field_position, red_cards, yellow_cards weight, height, goals from player")
                 .mapToBean(Player.class)
                 .list());
     }
@@ -30,19 +30,11 @@ public class ManagementQueries {
 
     }
 
-
     public Player getPlayerRecord(int id) {
-<<<<<<< Updated upstream
-        jdbi.open();
-        return (Player) jdbi.withHandle((h) -> h.createQuery("select * from player where id=?"+id)
-                .mapToBean(Player.class)
-                .list());
-=======
-        return (Player) jdbi.withHandle((h) -> h.select("select * from player where id = :id")
+        return (Player) jdbi.withHandle((h) -> h.select("select id,first_name,last_name,email,age,field_position,weight,height,red_cards,yellow_cards,goals from player where id = :id")
                 .bind("id", id)
                 .mapToBean(Player.class)
                 .findOnly());
->>>>>>> Stashed changes
     }
 
     public boolean updatePlayerRecord(int id, Player player) {
@@ -63,7 +55,6 @@ public class ManagementQueries {
         jdbi.useTransaction(handle -> handle.execute("insert into player (first_name,last_name,email,age,field_position,weight,height) values (?,?,?,?,?,?,?)", player.getFirstName(), player.getLastName(), player.getEmail(), player.getAge(), player.getPosition(), player.getWeight(), player.getHeight()));
         return true;
     }
-
 
     public boolean insertBookingRecord(Bookings bookings) {
         jdbi.useHandle((h) -> h.execute("insert into player( player_id, card_id) values (?,?)",

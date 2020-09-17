@@ -11,6 +11,9 @@ public class Player {
     private String fieldPosition;
     private double weight;
     private double height;
+    private int redCards;
+    private int yellowCards;
+    private int goals;
 
     public Player() {
     }
@@ -88,5 +91,37 @@ public class Player {
 
     public String getId() {
         return id;
+    }
+
+    public void setRedCards(int redCards) {
+        this.redCards = redCards;
+    }
+
+    public void setYellowCards(int yellowCards) {
+        this.yellowCards = yellowCards;
+    }
+
+    public int getRedCards() {
+        return redCards;
+    }
+
+    public int getYellowCards() {
+        return yellowCards;
+    }
+
+    public void setGoals(int goals) {
+        this.goals = goals;
+    }
+
+    public int getGoals() {
+        return goals;
+    }
+
+    public void setFieldPosition(String fieldPosition) {
+        this.fieldPosition = fieldPosition;
+    }
+
+    public String getFieldPosition() {
+        return fieldPosition;
     }
 }

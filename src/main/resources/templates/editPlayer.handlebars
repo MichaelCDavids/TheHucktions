@@ -28,46 +28,34 @@
                             <div class="row">
                                 <div class="col">
                                     <label for="email">Email</label>
-                                    <input type="email" class="form-control" name="email" placeholder="email" value="{{email}}">
+                                    <input type="email" class="form-control" name="email" value="{{email}}">
                                 </div>
                                 <div class="col">
                                     <label for="age">Age</label>
-                                    <input type="text" class="form-control" name="age" placeholder="age" value="{{age}}">
+                                    <input type="text" class="form-control" name="age" value="{{age}}">
                                 </div>
                             </div><br>
 
                             <div class="row">
                                 <div class="col">
                                     <label for="weight">Weight</label>
-                                    <input type="text" class="form-control" name="weight" placeholder="weight" value="{{weight}}">
+                                    <input type="text" class="form-control" name="weight" value="{{weight}}">
                                 </div>
 
                                 <div class="col">
                                     <label for="age">Height</label>
-                                    <input type="text" class="form-control" name="height" placeholder="height" value="{{height}}">
+                                    <input type="text" class="form-control" name="height" value="{{height}}">
                                 </div>
                             </div> <br>
                             <div class="row">
                                 <div class="col">
                                     <label for="weight">Red cards</label>
-                                    <div class="form-group">
-                                        <select class="form-control" name="redCards">
-                                            <option>0</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                        </select>
-                                    </div>
+                                    <input type="text" class="form-control" name="redCards" value="{{redCards}}">
                                 </div>
 
                                 <div class="col">
                                     <label for="age">Yellow cards</label>
-                                    <div class="form-group">
-                                        <select class="form-control" name="yellowCards">
-                                            <option>0</option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                        </select>
-                                    </div>
+                                    <input type="text" class="form-control" name="yellowCards" value="{{yellowCards}}">
                                 </div>
                             </div> <br>
 
@@ -88,12 +76,12 @@
 
                                 <div class="col">
                                     <label for="weight">Goals</label>
-                                    <input type="text" class="form-control" name="weight" placeholder="goals">
+                                    <input type="text" class="form-control" name="goals" value="{{goals}}">
                                 </div>
                             </div> <br>
 
                             <button type="submit" class="btn btn-primary mr-3">Update</button>
-                            <button type="button" class="btn btn-danger">delete</button>
+                            <a href="/delete/{{id}}" type="button" class="btn btn-danger">delete</a>
 
                         </form>
                     </div>

@@ -54,13 +54,12 @@ public class App {
             staticFiles.location("/public");
             port(getHerokuAssignedPort());
 
-            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/hucktion_db?user=codex&password=codex123");
+            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/spark_hbs_jdbi?user=thando&password=thando123");
             ManagementServices managementServices = new Management(new ManagementQueries(jdbi));
 
             get("/", (req, res) -> {
 
                 Map<String, Object> map = new HashMap<>();
-
 
                 return new ModelAndView(map, "index.handlebars");
 
@@ -91,7 +90,6 @@ public class App {
                 List<Player> players = managementServices.getAllPlayers();
                 Map<String, Object> map = new HashMap<>();
                 map.put("players", players);
-
                 return new ModelAndView(map, "players.handlebars");
 
             }, new HandlebarsTemplateEngine());
@@ -104,6 +102,7 @@ public class App {
             }, new HandlebarsTemplateEngine());
 
             get("/delete/:id", (req, res) -> {
+                managementServices.deletePlayerRecord(Integer.parseInt(req.params("id")));
                 res.redirect("/players");
 
                 return null;
@@ -111,7 +110,7 @@ public class App {
             }, new HandlebarsTemplateEngine());
 
             get("/edit/:id", (req, res) -> {
-                Player player = managementServices.getPlayerRecord(9);
+                Player player = managementServices.getPlayerRecord(Integer.parseInt(req.params("id")));
                 Map<String, Object> map = new HashMap<>();
                 map.put("player", player);
 
@@ -130,7 +129,7 @@ public class App {
                 return null;
 
             }, new HandlebarsTemplateEngine());
-            
+
             post("/add", (req, res) -> {
                 Player player = new Player();
                 String first_name = req.queryParams("name").toLowerCase();

@@ -13,22 +13,15 @@ public interface ManagementServices {
     boolean updatePlayerRecord(int id, Player player);
     boolean deletePlayerRecord(int id);
     List<Player> getAllPlayers();
-
-<<<<<<< Updated upstream
-
     boolean insertBookingRecord(Bookings bookings);
     Bookings getBookingRecord(int id);
     boolean updateBookingRecord(int id, Bookings bookings);
     boolean deleteBookingRecord(int id);
     List<Bookings> getAllBooking();
-
-
     boolean insertMatchRecord(Match match);
     Match getMatchRecord(int id);
     boolean updateMatchRecord(int id, Match match);
     boolean deleteMatchRecord(int id);
     List<Match> getAllMatch();
-=======
-    Player getById(int id);
->>>>>>> Stashed changes
+
 }
