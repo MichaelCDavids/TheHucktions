@@ -116,7 +116,6 @@ public class App {
 
             get("/edit/:id", (req, res) -> {
                 Player player = managementServices.getPlayerRecord(Integer.parseInt(req.params("id")));
-
                 System.out.println(player.getPosition());
                 String name = player.getFirstName();
                 Map<String, Object> map = new HashMap<>();
