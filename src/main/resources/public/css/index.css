@@ -12,11 +12,23 @@ body {
     background-color:#777;
     color:#777;
 }
-
+.anchors{
+padding:20px;
+    color:#00A0C6;
+    text-decoration:none;
+    cursor:pointer;
+}
 .box-btn{
-    margin:20px;
+    margin:30px;
     width:60%;
     height:80px;
     background-color:#ccc;
     text-align: center;
+}
+
+.image-box{
+`   margin:25px;
+    padding:20px;
+    height:300px;
+    width:300px;
 }
