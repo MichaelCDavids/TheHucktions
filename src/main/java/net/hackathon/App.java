@@ -59,28 +59,44 @@ public class App {
 
 
             get("/", (req, res) -> {
-                List<Player> people = managementServices.getAllPlayers();
-//                Player player = managementServices.getPlayerRecord(1);
-                Map<String, Object> map = new HashMap<>();
-                map.put("people", people);
-                map.put("data", "[2, 19, 3, 5, 2, 23]");
-                map.put("theGraphLabel", "The graph label");
-                map.put("labels", "['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']");
-
-                return new ModelAndView(map, "index.handlebars");
-
-            }, new HandlebarsTemplateEngine());
-
-
-            get("/players", (req, res) -> {
-
-
 
                 Map<String, Object> map = new HashMap<>();
 //                map.put("people", people);
 //                map.put("data", "[2, 19, 3, 5, 2, 23]");
 //                map.put("theGraphLabel", "The graph label");
 //                map.put("labels", "['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']");
+
+                return new ModelAndView(map, "index.handlebars");
+
+            }, new HandlebarsTemplateEngine());
+
+            get("/dashboard", (req, res) -> {
+                Map<String, Object> map = new HashMap<>();
+                return new ModelAndView(map, "dashboard.handlebars");
+            }, new HandlebarsTemplateEngine());
+
+            get("/staff", (req, res) -> {
+                Map<String, Object> map = new HashMap<>();
+                return new ModelAndView(map, "staff.handlebars");
+
+            }, new HandlebarsTemplateEngine());
+
+            get("/fixtures", (req, res) -> {
+                Map<String, Object> map = new HashMap<>();
+                return new ModelAndView(map, "fixtures.handlebars");
+            }, new HandlebarsTemplateEngine());
+
+            get("/gallery", (req, res) -> {
+                Map<String, Object> map = new HashMap<>();
+                return new ModelAndView(map, "gallery.handlebars");
+            }, new HandlebarsTemplateEngine());
+
+            get("/players", (req, res) -> {
+
+                List<Player> players = managementServices.getAllPlayers();
+
+                Map<String, Object> map = new HashMap<>();
+                map.put("players", players);
 
                 return new ModelAndView(map, "players.handlebars");
 
@@ -88,11 +104,6 @@ public class App {
 
             get("/add", (req, res) -> {
                 Map<String, Object> map = new HashMap<>();
-//                map.put("people", people);
-//                map.put("data", "[2, 19, 3, 5, 2, 23]");
-//                map.put("theGraphLabel", "The graph label");
-//                map.put("labels", "['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']");
-
                 return new ModelAndView(map, "registerplayer.handlebars");
 
             }, new HandlebarsTemplateEngine());
