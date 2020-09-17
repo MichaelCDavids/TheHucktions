@@ -71,7 +71,7 @@ public class ManagementQueries {
 
     public List<Player> getSelectedPlayers() {
         jdbi.open();
-        return jdbi.withHandle((h) -> h.createQuery("select first_name,last_name, field_position from selected join player on selected.player_id==player.id")
+        return jdbi.withHandle((h) -> h.createQuery("select player.first_name, player.last_name, player.field_position from selected join player on selected.player_id=player.id")
                 .mapToBean(Player.class)
                 .list());
     }
