@@ -57,14 +57,10 @@ public class App {
             Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/hucktion_db?user=mike&password=mike123");
             ManagementServices managementServices = new Management(new ManagementQueries(jdbi));
 
-
             get("/", (req, res) -> {
 
                 Map<String, Object> map = new HashMap<>();
-//                map.put("people", people);
-//                map.put("data", "[2, 19, 3, 5, 2, 23]");
-//                map.put("theGraphLabel", "The graph label");
-//                map.put("labels", "['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']");
+
 
                 return new ModelAndView(map, "index.handlebars");
 
@@ -92,52 +88,67 @@ public class App {
             }, new HandlebarsTemplateEngine());
 
             get("/players", (req, res) -> {
-
                 List<Player> players = managementServices.getAllPlayers();
 
+                for (Player p : players) {
+                    System.out.println(p.getPosition());
+                }
                 Map<String, Object> map = new HashMap<>();
                 map.put("players", players);
-
+//System.out.println(players.);
                 return new ModelAndView(map, "players.handlebars");
 
             }, new HandlebarsTemplateEngine());
 
             get("/add", (req, res) -> {
                 Map<String, Object> map = new HashMap<>();
+
                 return new ModelAndView(map, "registerplayer.handlebars");
 
             }, new HandlebarsTemplateEngine());
 
+            get("/delete/:id", (req, res) -> {
+                res.redirect("/players");
+
+                return null;
+
+            }, new HandlebarsTemplateEngine());
+
+            get("/edit/:id", (req, res) -> {
+                Player player = managementServices.getPlayerRecord(Integer.parseInt(req.params("id")));
+
+                System.out.println(player.getPosition());
+                String name = player.getFirstName();
+                Map<String, Object> map = new HashMap<>();
+                map.put("player", player);
+                map.put("name", name);
+
+                return new ModelAndView(map, "editPlayer.handlebars");
+
+            }, new HandlebarsTemplateEngine());
+
             post("/add", (req, res) -> {
-                System.out.println(req.queryParams("name"));
-                System.out.println(req.queryParams("surname"));
-                System.out.println(req.queryParams("email"));
-                System.out.println(req.queryParams("age"));
-                System.out.println(req.queryParams("height"));
-                System.out.println(req.queryParams("weight"));
-                System.out.println(req.queryParams("position"));
+                Player player = new Player();
+                String first_name = req.queryParams("name").toLowerCase();
+                String last_name = req.queryParams("surname").toLowerCase();
+                String newName = first_name.substring(0, 1).toUpperCase() + first_name.substring(1);
+                String newSurname = last_name.substring(0, 1).toUpperCase() + last_name.substring(1);
+
+                player.setFirstName(newName);
+                player.setLastName(newSurname);
+                player.setEmail(req.queryParams("email"));
+                player.setAge(Integer.parseInt(req.queryParams("age")));
+                player.setHeight(Double.parseDouble(req.queryParams("height")));
+                player.setWeight(Double.parseDouble(req.queryParams("weight")));
+                player.setPosition(req.queryParams("position"));
+
+                managementServices.insertPlayerRecord(player);
 
                 Map<String, Object> map = new HashMap<>();
                 return new ModelAndView(map, "registerplayer.handlebars");
 
             }, new HandlebarsTemplateEngine());
 
-            post("/person", (req, res) -> {
-
-                String firstName = req.queryParams("firstName");
-                String lastName = req.queryParams("lastName");
-                String email = req.queryParams("email");
-
-                jdbi.useHandle(h -> {
-                    h.execute("insert into users (firstName, lastName, email) values (?, ?, ?)",
-                            firstName,
-                            lastName,
-                            email);
-                });
-
-                res.redirect("/");
-                return "";
-            });
 
         } catch (Exception ex) {
             ex.printStackTrace();

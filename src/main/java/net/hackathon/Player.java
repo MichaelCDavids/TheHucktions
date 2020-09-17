@@ -3,27 +3,30 @@ package net.hackathon;
 //import org.jdbi.v3.core.mapper.reflect.ColumnName;
 
 public class Player {
-
+    private String id;
     private String firstName;
     private String lastName;
     private String email;
     private int age;
-    private String position;
+    private String pos;
     private double weight;
     private double height;
-
 
     public Player() {
     }
 
-    public Player(String firstName, String lastName, String email, int age, String position, double weight, double height) {
+    public Player(String firstName, String lastName, String email, int age, String pos, double weight, double height) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.age = age;
-        this.position = position;
+        this.pos = pos;
         this.weight = weight;
         this.height = height;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -59,11 +62,12 @@ public class Player {
     }
 
     public String getPosition() {
-        return position;
+        System.out.println("Getting pos: " + this.pos);
+        return pos;
     }
 
     public void setPosition(String position) {
-        this.position = position;
+        this.pos = position;
     }
 
     public double getWeight() {
@@ -80,5 +84,9 @@ public class Player {
 
     public void setHeight(double height) {
         this.height = height;
+    }
+
+    public String getId() {
+        return id;
     }
 }

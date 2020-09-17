@@ -26,7 +26,7 @@ public class ManagementQueries {
 
     public Player getPlayerRecord(int id) {
         jdbi.open();
-        return (Player) jdbi.withHandle((h) -> h.createQuery("select * from player where id=" + id)
+        return (Player) jdbi.withHandle((h) -> h.createQuery("select * from player where id=?"+id)
                 .mapToBean(Player.class)
                 .list());
     }

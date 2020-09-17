@@ -8,7 +8,8 @@
 
                 <div class="card" style="width:100%;">
                     <div class="card-header">
-                        Players table
+                        <h1>Update update</h1>
+                        <h1>WELCOME BACK: {{name}}</h1>
                     </div>
                     <div class="card-body">
                         <form method="post" action="/add">
@@ -27,21 +28,20 @@
                                     </thead>
                                     <tbody>
 
-                                    {{#each players}}
-                                        <tr>
-                                            <th scope="row">{{id}}</th>
-                                            <td>{{firstName}}</td>
-                                            <td>{{lastName}}</td>
-                                            <td>3</td>
-                                            <td>1</td>
-                                            <td><input type="checkbox" aria-label="Checkbox for following text input"></td>
-                                            <td>
-                                                <a href="/edit/{{id}}" type="button" class="btn btn-primary mr-3">Update</a>
-                                                <button type="button" class="btn btn-danger">RemmanagementServicesove</button>
-                                            </td>
-                                        </tr>
-                                    {{/each}}
-
+<!--                                    {{#each players}}-->
+<!--                                        <tr>-->
+<!--                                            <th scope="row">{{pos}}</th>-->
+<!--                                            <td>{{firstName}}</td>-->
+<!--                                            <td>{{lastName}}</td>-->
+<!--                                            <td>3</td>-->
+<!--                                            <td>1</td>-->
+<!--                                            <td><input type="checkbox" aria-label="Checkbox for following text input"></td>-->
+<!--                                            <td>-->
+<!--                                                <a href="/edit" type="button" class="btn btn-primary mr-3">Update</a>-->
+<!--                                                <button type="button" class="btn btn-danger">Remove</button>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                    {{/each}}-->
 
                                     </tbody>
                                 </table>
@@ -51,8 +51,6 @@
                         </form>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
