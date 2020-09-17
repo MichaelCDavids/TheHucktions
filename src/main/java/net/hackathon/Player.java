@@ -15,6 +15,7 @@ public class Player {
     public Player() {
     }
 
+
     public Player(String firstName, String lastName, String email, int age, String fieldPosition, double weight, double height) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -62,11 +63,10 @@ public class Player {
     }
 
     public String getPosition() {
-        System.out.println("Getting pos: " + this.fieldPosition);
         return fieldPosition;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(String fieldPosition) {
         this.fieldPosition = fieldPosition;
     }
 

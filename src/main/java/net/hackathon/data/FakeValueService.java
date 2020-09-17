@@ -2,13 +2,15 @@ package net.hackathon.data;
 
 import com.github.javafaker.Faker;
 import net.hackathon.Player;
+import net.hackathon.Bookings;
+import net.hackathon.Match;
 import net.hackathon.services.Management;
 import net.hackathon.services.ManagementQueries;
 import net.hackathon.services.ManagementServices;
 import org.jdbi.v3.core.Jdbi;
-
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Date;
 import java.sql.SQLException;
 
 public class FakeValueService {
@@ -45,7 +47,7 @@ public class FakeValueService {
 
     public static void createFakePlayers(int numberOfPlayers) {
         try {
-            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/hucktion_db?user=mike&password=mike123");
+            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/hucktion_db?user=codex&password=codex123");
             for (int i = 0; i < numberOfPlayers; i++) {
                 String first_name = faker.name().firstName();
                 String last_name = faker.name().lastName();
@@ -67,6 +69,40 @@ public class FakeValueService {
 
     }
 
+    public static void createFakeBookings(int numberOfBookings){
+        try {
+            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/hucktion_db?user=mike&password=mike123");
+            for (int i = 0; i< numberOfBookings; i++){
+                int player_id = faker.random().nextInt(1, 20);
+                int card_id = faker.random().nextInt(1,2);
+                Bookings newBooking = new Bookings(player_id, card_id);
+                System.out.println(String.format("s%\ns%",
+                        player_id,
+                        card_id
+                ));
+                ManagementServices managementServices = new Management(new ManagementQueries(jdbi));
+                managementServices.insertBookingRecord(newBooking);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public static void createFakeMatches(int numberOfMatches){
+        try{
+            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/hucktion_db?user=codex&password=codex123");
+            for (int i = 0; i< numberOfMatches; i++){
+                String team2 = faker.name().name();
+                String venue = faker.name().name();
+                //Date match_date = faker.date().
 
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
 }
