@@ -3,55 +3,107 @@
 
 <div class="jumbotron jumbotron-fluid" style="">
     <div class="container">
+    {{#with player}}
         <div class="row">
+            <div class="col-sm"> </div>
             <div class="col-sm">
 
-                <div class="card" style="width:100%;">
+                <div class="card" style="width: 40rem;">
                     <div class="card-header">
-                        <h1>Update update</h1>
-                        <h1>WELCOME BACK: {{name}}</h1>
+                        Updating {{firstName}} {{lastName}} details:
                     </div>
                     <div class="card-body">
-                        <form method="post" action="/add">
+                        <form method="post" action="/edit/{{id}}">
                             <div class="row">
-                                <table class="table table-bordered text-center">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">Position</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Surname</th>
-                                        <th scope="col">Yellow cards</th>
-                                        <th scope="col">Red cards</th>
-                                        <th scope="col">Select</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
+                                <div class="col">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" name="name" placeholder="name" value="{{firstName}}">
+                                </div>
+                                <div class="col">
+                                    <label for="surname">Surname</label>
+                                    <input type="text" class="form-control" name="surname" placeholder="surname" value="{{lastName}}">
+                                </div>
+                            </div> <br>
 
-<!--                                    {{#each players}}-->
-<!--                                        <tr>-->
-<!--                                            <th scope="row">{{pos}}</th>-->
-<!--                                            <td>{{firstName}}</td>-->
-<!--                                            <td>{{lastName}}</td>-->
-<!--                                            <td>3</td>-->
-<!--                                            <td>1</td>-->
-<!--                                            <td><input type="checkbox" aria-label="Checkbox for following text input"></td>-->
-<!--                                            <td>-->
-<!--                                                <a href="/edit" type="button" class="btn btn-primary mr-3">Update</a>-->
-<!--                                                <button type="button" class="btn btn-danger">Remove</button>-->
-<!--                                            </td>-->
-<!--                                        </tr>-->
-<!--                                    {{/each}}-->
-
-                                    </tbody>
-                                </table>
-                                <button type="button" class="btn btn-primary mr-3">Submit</button>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" name="email" placeholder="email" value="{{email}}">
+                                </div>
+                                <div class="col">
+                                    <label for="age">Age</label>
+                                    <input type="text" class="form-control" name="age" placeholder="age" value="{{age}}">
+                                </div>
                             </div><br>
+
+                            <div class="row">
+                                <div class="col">
+                                    <label for="weight">Weight</label>
+                                    <input type="text" class="form-control" name="weight" placeholder="weight" value="{{weight}}">
+                                </div>
+
+                                <div class="col">
+                                    <label for="age">Height</label>
+                                    <input type="text" class="form-control" name="height" placeholder="height" value="{{height}}">
+                                </div>
+                            </div> <br>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="weight">Red cards</label>
+                                    <div class="form-group">
+                                        <select class="form-control" name="redCards">
+                                            <option>0</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <label for="age">Yellow cards</label>
+                                    <div class="form-group">
+                                        <select class="form-control" name="yellowCards">
+                                            <option>0</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div> <br>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="position">Position</label>
+                                        <div class="form-group">
+                                            <select class="form-control" name="position">
+                                                <option>GK</option>
+                                                <option>DF</option>
+                                                <option>MF</option>
+                                                <option>FWD</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <label for="weight">Goals</label>
+                                    <input type="text" class="form-control" name="weight" placeholder="goals">
+                                </div>
+                            </div> <br>
+
+                            <button type="submit" class="btn btn-primary mr-3">Update</button>
+                            <button type="button" class="btn btn-danger">delete</button>
 
                         </form>
                     </div>
                 </div>
+
+
+
             </div>
+            <div class="col-sm"> </div>
         </div>
+    {{/with}}
     </div>
 </div>

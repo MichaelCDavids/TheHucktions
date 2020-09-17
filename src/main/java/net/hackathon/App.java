@@ -89,14 +89,9 @@ public class App {
 
             get("/players", (req, res) -> {
                 List<Player> players = managementServices.getAllPlayers();
-
-                for (Player p : players) {
-                    System.out.println(p.getEmail());
-                }
-
                 Map<String, Object> map = new HashMap<>();
                 map.put("players", players);
-                //System.out.println(players.);
+
                 return new ModelAndView(map, "players.handlebars");
 
             }, new HandlebarsTemplateEngine());
@@ -116,18 +111,26 @@ public class App {
             }, new HandlebarsTemplateEngine());
 
             get("/edit/:id", (req, res) -> {
-                Player player = managementServices.getPlayerRecord(Integer.parseInt(req.params("id")));
-
-                System.out.println(player.getPosition());
-                String name = player.getFirstName();
+                Player player = managementServices.getPlayerRecord(9);
                 Map<String, Object> map = new HashMap<>();
                 map.put("player", player);
-                map.put("name", name);
 
                 return new ModelAndView(map, "editPlayer.handlebars");
 
             }, new HandlebarsTemplateEngine());
 
+            post("/edit/:id", (req, res) -> {
+                int id = Integer.parseInt(req.params("id"));
+                Map<String, Object> map = new HashMap<>();
+
+                System.out.println(req.queryParams());
+                System.out.println(req.params("id"));
+
+                res.redirect("/edit/" + id);
+                return null;
+
+            }, new HandlebarsTemplateEngine());
+            
             post("/add", (req, res) -> {
                 Player player = new Player();
                 String first_name = req.queryParams("name").toLowerCase();

@@ -22,11 +22,27 @@ public class ManagementQueries {
                 .list());
     }
 
+    public Player getById(int id) {
+        return (Player) jdbi.withHandle((h) -> h.select("select * from player where id = :id")
+                .bind("id", id)
+                .mapToBean(Player.class)
+                .findOnly());
+
+    }
+
+
     public Player getPlayerRecord(int id) {
+<<<<<<< Updated upstream
         jdbi.open();
         return (Player) jdbi.withHandle((h) -> h.createQuery("select * from player where id=?"+id)
                 .mapToBean(Player.class)
                 .list());
+=======
+        return (Player) jdbi.withHandle((h) -> h.select("select * from player where id = :id")
+                .bind("id", id)
+                .mapToBean(Player.class)
+                .findOnly());
+>>>>>>> Stashed changes
     }
 
     public boolean updatePlayerRecord(int id, Player player) {

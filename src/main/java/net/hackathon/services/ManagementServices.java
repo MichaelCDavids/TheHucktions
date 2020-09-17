@@ -14,6 +14,7 @@ public interface ManagementServices {
     boolean deletePlayerRecord(int id);
     List<Player> getAllPlayers();
 
+<<<<<<< Updated upstream
 
     boolean insertBookingRecord(Bookings bookings);
     Bookings getBookingRecord(int id);
@@ -27,4 +28,7 @@ public interface ManagementServices {
     boolean updateMatchRecord(int id, Match match);
     boolean deleteMatchRecord(int id);
     List<Match> getAllMatch();
+=======
+    Player getById(int id);
+>>>>>>> Stashed changes
 }

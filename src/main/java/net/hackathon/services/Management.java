@@ -40,6 +40,7 @@ public class Management implements ManagementServices {
     }
 
     @Override
+<<<<<<< Updated upstream
     public boolean insertBookingRecord(Bookings bookings) {
         return managementQueries.insertBookingRecord(bookings);
     }
@@ -88,5 +89,9 @@ public class Management implements ManagementServices {
     @Override
     public List<Match> getAllMatch() {
         return managementQueries.getAllMatch();
+=======
+    public Player getById(int id) {
+        return managementQueries.getById(id);
+>>>>>>> Stashed changes
     }
 }
