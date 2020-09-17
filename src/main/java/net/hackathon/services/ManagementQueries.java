@@ -14,7 +14,7 @@ public class ManagementQueries {
     }
 
     public List<Player> getAllPlayers() {
-        return jdbi.withHandle((h) -> h.createQuery("select first_name, last_name, email from users")
+        return jdbi.withHandle((h) -> h.createQuery("select * from player")
                 .mapToBean(Player.class)
                 .list());
     }
