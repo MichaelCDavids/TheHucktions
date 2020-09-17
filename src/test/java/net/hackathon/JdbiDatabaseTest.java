@@ -1,11 +1,13 @@
 package net.hackathon;
+
 import org.jdbi.v3.core.Jdbi;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class JdbiDatabaseTest {
 
@@ -66,13 +68,13 @@ public class JdbiDatabaseTest {
 
         final String INSERT_USER = "insert into users (first_name, last_name, email) values (?, ?, ?)";
 
-        List<Person> people = jdbi.withHandle(h -> {
+        List<Player> people = jdbi.withHandle(h -> {
             h.execute(INSERT_USER, "Name two", "LastName one", "Email one");
             h.execute(INSERT_USER, "Name three", "LastName three", "Email one");
             h.execute(INSERT_USER, "Name four", "LastName four", "Email one");
 
-            List<Person> listPerson = h.createQuery("select first_name, last_name, email from users")
-                    .mapToBean(Person.class)
+            List<Player> listPerson = h.createQuery("select first_name, last_name, email from users")
+                    .mapToBean(Player.class)
                     .list();
             return listPerson;
         });
@@ -81,6 +83,5 @@ public class JdbiDatabaseTest {
         assertEquals("Name three", people.get(1).getFirstName());
         assertEquals("LastName three", people.get(1).getLastName());
     }
-
 
 }

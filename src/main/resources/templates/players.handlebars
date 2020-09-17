@@ -1,0 +1,59 @@
+
+{{> header.handlebars}}
+
+<div class="jumbotron jumbotron-fluid" style="">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+
+                <div class="card" style="width:100%;">
+                    <div class="card-header">
+                        Players table
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="/add">
+                            <div class="row">
+                                <table class="table table-bordered text-center">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Position</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Surname</th>
+                                        <th scope="col">Yellow cards</th>
+                                        <th scope="col">Red cards</th>
+                                        <th scope="col">Select</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    {{#each players}}
+                                        <tr>
+                                            <th scope="row">{{id}}</th>
+                                            <td>{{firstName}}</td>
+                                            <td>{{lastName}}</td>
+                                            <td>3</td>
+                                            <td>1</td>
+                                            <td><input type="checkbox" aria-label="Checkbox for following text input"></td>
+                                            <td>
+                                                <a href="/edit/{{id}}" type="button" class="btn btn-primary mr-3">Update</a>
+                                                <button type="button" class="btn btn-danger">RemmanagementServicesove</button>
+                                            </td>
+                                        </tr>
+                                    {{/each}}
+
+
+                                    </tbody>
+                                </table>
+                                <button type="button" class="btn btn-primary mr-3">Submit</button>
+                            </div><br>
+
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

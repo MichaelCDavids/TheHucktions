@@ -1,0 +1,73 @@
+{{> header.handlebars}}
+
+<div class="jumbotron jumbotron-fluid" style="">
+   <div class="container">
+     <div class="row">
+       <div class="col-sm"> </div>
+       <div class="col-sm">
+
+       <div class="card" style="width: 40rem;">
+               <div class="card-header">
+                 Add New Player
+               </div>
+               <div class="card-body">
+                 <form method="post" action="/add">
+                    <div class="row">
+                        <div class="col">
+                           <label for="name">Name</label>
+                           <input type="text" class="form-control" name="name" placeholder="name">
+                        </div>
+                        <div class="col">
+                            <label for="surname">Surname</label>
+                            <input type="text" class="form-control" name="surname" placeholder="surname">
+                        </div>
+                    </div> <br>
+
+                    <div class="row">
+                       <div class="col">
+                           <label for="email">Email</label>
+                           <input type="email" class="form-control" name="email" placeholder="email">
+                       </div>
+                       <div class="col">
+                           <label for="age">Age</label>
+                           <input type="text" class="form-control" name="age" placeholder="age">
+                      </div>
+                    </div><br>
+
+                     <div class="row">
+                         <div class="col">
+                            <label for="weight">Weight</label>
+                            <input type="text" class="form-control" name="weight" placeholder="weight">
+                          </div>
+
+                          <div class="col">
+                            <label for="age">Height</label>
+                            <input type="text" class="form-control" name="height" placeholder="height">
+                          </div>
+                     </div> <br>
+
+                 <div class="form-group">
+                   <label for="position">Position</label>
+                    <div class="form-group">
+                      <select class="form-control" name="position" style="width: 48%;">
+                        <option>GK</option>
+                        <option>DF</option>
+                        <option>MF</option>
+                        <option>FWD</option>
+                      </select>
+                    </div>
+                 </div>
+
+                 <div><button type="submit" class="btn btn-primary" style="float: right;">Add new</button></div>
+
+                 </form>
+               </div>
+             </div>
+
+
+
+       </div>
+       <div class="col-sm"> </div>
+     </div>
+   </div>
+</div>
