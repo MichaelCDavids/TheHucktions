@@ -64,7 +64,7 @@ public class ManagementQueries {
 
     public List<Player> getAllPlayers() {
         jdbi.open();
-        return jdbi.withHandle((h) -> h.createQuery("select id, first_name, last_name, email, age, field_position, red_cards, yellow_cards weight, height, goals from player")
+        return jdbi.withHandle((h) -> h.createQuery("select id, first_name, last_name, email, age, field_position, red_cards, yellow_cards, weight, height, goals, assists, clean_sheets from player")
                 .mapToBean(Player.class)
                 .list());
     }

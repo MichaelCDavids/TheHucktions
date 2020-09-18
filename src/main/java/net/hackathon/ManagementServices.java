@@ -15,9 +15,9 @@ public interface ManagementServices {
     List<Player> getAllPlayers();
     Player getPlayerRecord(int id);
     List<Player> getSelectedPlayers();
+    List<Bookings> getAllBooking();
     Bookings getBookingRecord(int id);
     List<Match> getAllMatch();
-    List<Bookings> getAllBooking();
     Match getMatchRecord(int id);
 
     boolean updatePlayerRecord(int id, Player player);
