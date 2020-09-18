@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.lang.Integer.parseInt;
 import static spark.Spark.*;
 
 public class App {
@@ -19,7 +20,7 @@ public class App {
     static int getHerokuAssignedPort() {
         ProcessBuilder processBuilder = new ProcessBuilder();
         if (processBuilder.environment().get("PORT") != null) {
-            return Integer.parseInt(processBuilder.environment().get("PORT"));
+            return parseInt(processBuilder.environment().get("PORT"));
         }
         return 4568;
     }
@@ -62,7 +63,28 @@ public class App {
             }, new HandlebarsTemplateEngine());
 
             get("/dashboard", (req, res) -> {
+                List<Player> players = managementServices.getAllPlayers();
+
+
                 Map<String, Object> map = new HashMap<>();
+                map.put("theGraphLabelOne", "Attendance");
+                map.put("labelsOne", "['Training', 'Workshops', 'Team Builing', 'Lessons']");
+                map.put("dataOne", "[10, 15, 19, 6,]");
+
+                map.put("theGraphLabelTwo", "Win vs Losses");
+                map.put("labelsTwo", "['Wins', 'Losses']");
+                map.put("dataTwo", "[14, 19]");
+
+                map.put("theGraphLabelThree", "Financials");
+                map.put("labelsThree", "['Transfers', 'Wages', 'TravelCosts', 'Equipment']");
+                map.put("dataThree", "[10, 8, 11, 23]");
+
+                map.put("theGraphLabelFour", "Income");
+                map.put("labelsFour", "['Sales', 'Sponsors', 'Subscriptions', 'Tickets', 'Prize Money']");
+                map.put("dataFour", "[18, 19, 10, 40,8]");
+
+                map.put("totalPlayers", players.size());
+
                 return new ModelAndView(map, "dashboard.handlebars");
             }, new HandlebarsTemplateEngine());
 
@@ -110,9 +132,7 @@ public class App {
                 List<Player> players = managementServices.getSelectedPlayers();
                 Map<String, Object> map = new HashMap<>();
                 map.put("players", players);
-                //System.out.println(players.);
                 return new ModelAndView(map, "selected.handlebars");
-
             }, new HandlebarsTemplateEngine());
 
             get("/add", (req, res) -> {
@@ -122,7 +142,7 @@ public class App {
             }, new HandlebarsTemplateEngine());
 
             get("/delete/:id", (req, res) -> {
-                managementServices.deletePlayerRecord(Integer.parseInt(req.params("id")));
+                managementServices.deletePlayerRecord(parseInt(req.params("id")));
                 res.redirect("/players");
 
                 return null;
@@ -134,10 +154,13 @@ public class App {
                 Map<String, Object> map = new HashMap<>();
                 map.put("bookings", bookings);
                 return new ModelAndView(map, "bookings.handlebars");
-            });
+            }, new HandlebarsTemplateEngine());
 
             get("/edit/:id", (req, res) -> {
-                Player player = managementServices.getPlayerRecord(Integer.parseInt(req.params("id")));
+                int id = Integer.parseInt(req.params("id"));
+                Player player = managementServices.getPlayerRecord(id);
+                System.out.println(id);
+                String name = player.getFirstName();
                 Map<String, Object> map = new HashMap<>();
                 map.put("player", player);
 
@@ -146,7 +169,7 @@ public class App {
             }, new HandlebarsTemplateEngine());
 
             post("/edit/:id", (req, res) -> {
-                int id = Integer.parseInt(req.params("id"));
+                int id = parseInt(req.params("id"));
                 Map<String, Object> map = new HashMap<>();
 
                 System.out.println(req.queryParams());
@@ -167,7 +190,7 @@ public class App {
                 player.setFirstName(newName);
                 player.setLastName(newSurname);
                 player.setEmail(req.queryParams("email"));
-                player.setAge(Integer.parseInt(req.queryParams("age")));
+                player.setAge(parseInt(req.queryParams("age")));
                 player.setHeight(Double.parseDouble(req.queryParams("height")));
                 player.setWeight(Double.parseDouble(req.queryParams("weight")));
                 player.setFieldPosition(req.queryParams("position"));
