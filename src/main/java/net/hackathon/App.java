@@ -7,6 +7,7 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +52,7 @@ public class App {
             staticFiles.location("/public");
             port(getHerokuAssignedPort());
 
-            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/hucktion_db?user=mike&password=mike123");
+            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/spark_hbs_jdbi?user=thando&password=thando123");
 
             ManagementServices managementServices = new Management(new ManagementQueries(jdbi));
 
@@ -103,6 +104,8 @@ public class App {
 
             }, new HandlebarsTemplateEngine());
 
+
+
             get("/selected", (req, res) -> {
                 List<Player> players = managementServices.getSelectedPlayers();
                 Map<String, Object> map = new HashMap<>();
@@ -135,8 +138,6 @@ public class App {
 
             get("/edit/:id", (req, res) -> {
                 Player player = managementServices.getPlayerRecord(Integer.parseInt(req.params("id")));
-                System.out.println(player.getFieldPosition());
-                String name = player.getFirstName();
                 Map<String, Object> map = new HashMap<>();
                 map.put("player", player);
 
@@ -151,7 +152,7 @@ public class App {
                 System.out.println(req.queryParams());
                 System.out.println(req.params("id"));
 
-                res.redirect("/edit/" + id);
+                res.redirect("/players");
                 return null;
 
             }, new HandlebarsTemplateEngine());
@@ -179,10 +180,18 @@ public class App {
             }, new HandlebarsTemplateEngine());
 
             post("/save", (req, res) -> {
-                System.out.println(req.body());
-
+                List<Player> selected = new ArrayList<>();
+                System.out.println(req.queryParams());
+                for (String item: req.queryParams()) {
+                    //managementServices.insertPlayerRecord(player);
+                    selected.add(managementServices.getPlayerRecord(Integer.parseInt(item)));
+                }
+                System.out.println(selected.size());
                 Map<String, Object> map = new HashMap<>();
-                return new ModelAndView(map, "staff.handlebars");
+
+                res.redirect("/staff");
+
+                return null;
 
             }, new HandlebarsTemplateEngine());
 

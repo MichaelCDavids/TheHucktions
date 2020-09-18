@@ -1,0 +1,68 @@
+{{> header.handlebars}}
+<div class="jumbotron jumbotron-fluid" style="">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <div class="card" style="width:100%;">
+                    <div class="card-header row justify-content-between">
+                        <div class="">
+                            Players information & Statistics
+                        </div>
+                        <a href="/select">
+                            <button type="button" class="btn btn-warning  right mr-3">Select Starting LineUp</button>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="/add">
+                            <div class="row">
+                                <table class="table table-bordered text-center">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Position</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Surname</th>
+                                        <th scope="col">Age</th>
+                                        <th scope="col">Height(m)</th>
+                                        <th scope="col">Weight(kg)</th>
+                                        <th scope="col">Yellow</th>
+                                        <th scope="col">Red</th>
+                                        <th scope="col">Goals</th>
+                                        <th scope="col">Assists</th>
+                                        <th scope="col">Clean Sheets</th>
+                                        <th scope="col">Edit</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {{#each players}}
+                                        <tr>
+                                            <td>{{fieldPosition}}</td>
+                                            <td>{{firstName}}</td>
+                                            <td>{{lastName}}</td>
+                                            <td>{{age}}</td>
+                                            <td>{{height}}</td>
+                                            <td>{{weight}}</td>
+                                            <td>{{yellowCards}}</td>
+                                            <td>{{redCards}}</td>
+                                            <td>{{goals}}</td>
+                                            <td>{{assists}}</td>
+                                            <td>{{cleanSheets}}</td>
+                                            <td>
+                                                <a href="/edit/{{id}}" type="button"
+                                                   class="btn btn-primary mr-3">Update</a>
+                                                <!--                                                <button type="button" class="btn btn-danger">delete</button>-->
+                                            </td>
+                                        </tr>
+                                    {{/each}}
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <br>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

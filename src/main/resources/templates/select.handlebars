@@ -7,7 +7,7 @@
                 <div class="card" style="width:100%;">
                     <div class="card-header row justify-content-between">
                         <div class="">
-                            Season Statistics
+                            <h3>Season Statistics</h3>
                         </div>
                     </div>
                     <div class="card-body">
@@ -47,7 +47,7 @@
                                             <td>{{cleanSheets}}</td>
 
                                             <td>
-                                                <input type="checkbox" name="selected"
+                                                <input type="checkbox" name="{{id}}"
                                                        aria-label="Checkbox for following text input">
                                             </td>
                                         </tr>
@@ -55,16 +55,22 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <br>
+                            <br><br>
+
+                            <div class="row justify-content-around">
+                                <div>
+                                    <button type="submit" class="btn btn-warning  right m-3">Save Team Selection</button>
+                                </div>
+                            </div>
 
                         </form>
                     </div>
                 </div>
-                <div class="row justify-content-around">
-                    <div>
-                        <button type="submit" class="btn btn-warning  right m-3">Save Team Selection</button>
-                    </div>
-                </div>
+<!--                <div class="row justify-content-around">-->
+<!--                    <div>-->
+<!--                        <a href="" class="btn btn-warning  right m-3">Save Team Selection</a>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
         </div>
     </div>

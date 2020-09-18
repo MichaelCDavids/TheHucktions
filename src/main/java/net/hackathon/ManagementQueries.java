@@ -19,6 +19,7 @@ public class ManagementQueries {
     }
 
     public boolean insertBookingRecord(Bookings bookings) {
+        System.out.println(bookings.getPlayer_id());
         jdbi.useHandle((h) -> h.execute("insert into bookings( player_id, card_id) values (?,?)",
                 bookings.getPlayer_id(),
                 bookings.getCard_id()

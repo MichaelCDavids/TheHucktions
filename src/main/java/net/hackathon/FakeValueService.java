@@ -47,7 +47,7 @@ public class FakeValueService {
 
     public static void createFakePlayers(int numberOfPlayers) {
         try {
-            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/hucktion_db?user=mike&password=mike123");
+            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/spark_hbs_jdbi?user=thando&password=thando123");
             for (int i = 0; i < numberOfPlayers; i++) {
                 String first_name = faker.name().firstName();
                 String last_name = faker.name().lastName();
@@ -71,7 +71,7 @@ public class FakeValueService {
 
     public static void createFakeBookings(int numberOfBookings){
         try {
-            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/hucktion_db?user=mike&password=mike123");
+            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/spark_hbs_jdbi?user=thando&password=thando123");
             for (int i = 0; i< numberOfBookings; i++){
                 int player_id = faker.random().nextInt(1, 20);
                 int card_id = faker.random().nextInt(1,2);
