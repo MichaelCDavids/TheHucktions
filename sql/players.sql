@@ -1,4 +1,4 @@
-drop table if exists player,bookings, ranking, selected;
+drop table if exists player,bookings, cards, selected,matches;
 
 create table player(
 	id serial not null primary key,
@@ -29,24 +29,15 @@ create table cards(
 
 create table selected(
     id serial not null primary key,
-    player_id int not null,
+    player_id int not null
 );
 
---<<<<<<< HEAD
---insert into player (first_name, last_name, email, age, field_position, weight, height)
---values ('Lindani', 'Pani', 'lindani@email.com', 21, 'GK', 52.5, 1.59);
---insert into player (first_name, last_name, email, age, field_position, weight, height)
---values ('Sihle', 'Feni', 'sfeni@email.com', 25, 'GK', 62.5, 1.63);
---insert into player (first_name, last_name, email, age, field_position, weight, height)
---values ('Phumlani', 'Wapi', 'wapi@email.com', 31, 'GK', 60.5, 1.7);
---=======
 create table matches(
     id serial not null primary key,
     team1 text not null,
     team2 text not null,
     venue text not null,
-    match_date date not null,
-    match_time date not null
+    match_date date not null
 );
 
 insert into player (first_name, last_name, email, age, field_position, weight, height, yellow_cards, red_cards,goals,assists,clean_sheets)
@@ -59,4 +50,3 @@ insert into cards (card_name) values ('Red');
 
 insert into selected (player_id) values (1);
 
--->>>>>>> 26aa23bd32c1aaf1c95f1718b7319907a931e6de

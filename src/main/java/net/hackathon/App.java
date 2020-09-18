@@ -1,5 +1,6 @@
 package net.hackathon;
 
+import com.github.javafaker.Faker;
 import org.jdbi.v3.core.Jdbi;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -7,15 +8,18 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 
 import static java.lang.Integer.parseInt;
 import static spark.Spark.*;
 
 public class App {
+
+    private static Jdbi jdbi;
+    static Faker faker = new Faker();
+    static String[] postions = {"GK", "DEF", "MID", "ATT"};
 
     static int getHerokuAssignedPort() {
         ProcessBuilder processBuilder = new ProcessBuilder();
@@ -48,19 +52,78 @@ public class App {
 
     }
 
+    public static void createFakePlayers(int numberOfPlayers) {
+        for (int i = 0; i < numberOfPlayers; i++) {
+            String first_name = faker.name().firstName();
+            String last_name = faker.name().lastName();
+            String email = first_name.toLowerCase() + last_name.toLowerCase() + "@gmail.com";
+            int age = faker.random().nextInt(17, 35);
+            double weight = (double) (faker.random().nextInt(50, 85)/3)*2.98;
+            double height = (double) faker.random().nextInt(1, 2)*1.25;
+            String position = postions[faker.random().nextInt(0, 3)];
+            Player newPlayer = new Player(first_name, last_name, email, age, position, weight, height);
+            ManagementServices managementServices = new Management(new ManagementQueries(jdbi));
+            managementServices.insertPlayerRecord(newPlayer);
+        }
+    }
+
+    public static void createFakeBookings(int numberOfBookings){
+        try {
+            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/spark_hbs_jdbi?user=thando&password=thando123");
+            for (int i = 0; i< numberOfBookings; i++){
+                int player_id = faker.random().nextInt(1, 20);
+                int card_id = faker.random().nextInt(1,2);
+                Bookings newBooking = new Bookings(player_id, card_id);
+                ManagementServices managementServices = new Management(new ManagementQueries(jdbi));
+                managementServices.insertBookingRecord(newBooking);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createFakeMatches(int numberOfMatches){
+        try{
+            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/hucktion_db?user=mike&password=mike123");
+            for (int i = 0; i< numberOfMatches; i++){
+                Date match_date = new Date(1601536703);
+                Match match = new Match();
+                match.setMatch_date(match_date);
+                match.setTeam2("Sheffield");
+                match.setTeam1("Hucktions Athletic");
+                match.setVenue("Codex Stadium");
+                ManagementServices managementServices = new Management(new ManagementQueries(jdbi));
+                managementServices.insertMatchRecord(match);
+
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
+
         try {
             staticFiles.location("/public");
             port(getHerokuAssignedPort());
 
-            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/hucktion_db?user=mike&password=mike123");
+            jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/hucktion_db?user=mike&password=mike123");
 
             ManagementServices managementServices = new Management(new ManagementQueries(jdbi));
+//            createFakePlayers(32);
+//            createFakeBookings(20);
+//            createFakeMatches(1);
 
             get("/", (req, res) -> {
                 Map<String, Object> map = new HashMap<>();
                 return new ModelAndView(map, "index.handlebars");
             }, new HandlebarsTemplateEngine());
+
+
 
             get("/dashboard", (req, res) -> {
                 List<Player> players = managementServices.getAllPlayers();
@@ -94,7 +157,9 @@ public class App {
             }, new HandlebarsTemplateEngine());
 
             get("/fixtures", (req, res) -> {
+                List<Match> listOfMatches = managementServices.getAllMatch();
                 Map<String, Object> map = new HashMap<>();
+                map.put("match",listOfMatches);
                 return new ModelAndView(map, "fixtures.handlebars");
             }, new HandlebarsTemplateEngine());
 
@@ -111,12 +176,6 @@ public class App {
 
             }, new HandlebarsTemplateEngine());
 
-            get("/players", (req, res) -> {
-                List<Player> players = managementServices.getAllPlayers();
-                Map<String, Object> map = new HashMap<>();
-                map.put("players", players);
-                return new ModelAndView(map, "players.handlebars");
-            }, new HandlebarsTemplateEngine());
 
             get("/select", (req, res) -> {
                 List<Player> players = managementServices.getAllPlayers();
@@ -217,7 +276,6 @@ public class App {
                 return null;
 
             }, new HandlebarsTemplateEngine());
-
 
         } catch (Exception ex) {
             ex.printStackTrace();

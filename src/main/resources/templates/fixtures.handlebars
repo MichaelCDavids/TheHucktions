@@ -2,18 +2,20 @@
 <main role="main">
     <div class="container my-4">
         <h3>Schedule</h3>
-        <div class="card text-center">
-            <div class="card-header">
-                Premier League
+        {{#each match}}
+            <div class="card text-center my-4">
+                <div class="card-header">
+                    Premier League
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{team1}}  vs {{team2}}</h5>
+                    <p class="card-text">Venue: {{venue}}</p>
+                </div>
+                <div class="card-footer text-muted">
+                    Date: {{match_date}}
+                    Time: 19:00+SAST
+                </div>
             </div>
-            <div class="card-body">
-                <h5 class="card-title">Hucktions Athletics  vs Arsenal</h5>
-                <p class="card-text">Venue: CodeX Trafford</p>
-            </div>
-            <div class="card-footer text-muted">
-                Date: 27 September 2020
-                Time: 14:00SAST
-            </div>
-        </div>
+        {{/each}}
     </div>
 </main>

@@ -28,13 +28,13 @@ public class ManagementQueries {
     }
 
     public boolean insertMatchRecord(Match match) {
-        jdbi.useHandle((h) -> h.execute("insert into matches( team1, team2, venue, match_date, match_time) values (?,?,?,?,?)",
-                match.getTeam1("Hucktions Athletic F.C"),
+        jdbi.useHandle((h) -> h.execute("insert into matches ( team1, team2, venue, match_date) values (?,?,?,?)",
+                match.getTeam1(),
                 match.getTeam2(),
                 match.getVenue(),
-                match.getMatch_date(),
-                match.getMatch_time()
+                match.getMatch_date()
         ));
+        System.out.println("added match");
         return true;
     }
 
@@ -84,7 +84,7 @@ public class ManagementQueries {
     }
 
     public List<Match> getAllMatch() {
-        return jdbi.withHandle((h) -> h.createQuery("select team1, team2, venue, match_data, match_time from player")
+        return jdbi.withHandle((h) -> h.createQuery("select team1, team2, venue, match_date from matches")
                 .mapToBean(Match.class)
                 .list());
     }

@@ -1,6 +1,5 @@
 package net.hackathon;
 
-import java.sql.Time;
 import java.util.Date;
 
 public class Match {
@@ -9,14 +8,12 @@ public class Match {
     private String team2;
     private String venue;
     private Date match_date;
-    private Time match_time;
 
-    public Match(String team1, String team2, String venue, Date match_date, Time match_time) {
+    public Match(String team1, String team2, String venue, Date match_date) {
         this.team1 = team1;
         this.team2 = team2;
         this.venue = venue;
         this.match_date = match_date;
-        this.match_time = match_time;
     }
 
     public Match() {
@@ -24,7 +21,7 @@ public class Match {
     }
 
 
-    public String getTeam1(String s) {
+    public String getTeam1() {
         return team1;
     }
 
@@ -56,11 +53,4 @@ public class Match {
         this.match_date = match_date;
     }
 
-    public Date getMatch_time() {
-        return match_time;
-    }
-
-    public void setMatch_time(Time match_time) {
-        this.match_time = match_time;
-    }
 }

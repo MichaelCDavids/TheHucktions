@@ -1,11 +1,7 @@
 package net.hackathon;
 
 import com.github.javafaker.Faker;
-import net.hackathon.Player;
-import net.hackathon.Bookings;
-import net.hackathon.Management;
-import net.hackathon.ManagementQueries;
-import net.hackathon.ManagementServices;
+
 import org.jdbi.v3.core.Jdbi;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -15,12 +11,12 @@ public class FakeValueService {
     static Faker faker = new Faker();
     static String[] postions = {"GK", "DEF", "MID", "ATT"};
 
+    static Jdbi jdbi;
 
-    public static void main(String[] args) {
-        createFakePlayers(1);
-        createFakeBookings(1);
-        createFakeMatches(1);
+    public FakeValueService(Jdbi jdbi){
+       this.jdbi = jdbi;
     }
+
 
     static Jdbi getJdbiDatabaseConnection(String defaultJdbcUrl) throws URISyntaxException, SQLException {
         ProcessBuilder processBuilder = new ProcessBuilder();
@@ -46,24 +42,17 @@ public class FakeValueService {
     }
 
     public static void createFakePlayers(int numberOfPlayers) {
-        try {
-            Jdbi jdbi = getJdbiDatabaseConnection("jdbc:postgresql://localhost/spark_hbs_jdbi?user=thando&password=thando123");
-            for (int i = 0; i < numberOfPlayers; i++) {
-                String first_name = faker.name().firstName();
-                String last_name = faker.name().lastName();
-                String email = first_name.toLowerCase() + last_name.toLowerCase() + "@gmail.com";
-                int age = faker.random().nextInt(17, 35);
-                double weight = (double) (faker.random().nextInt(50, 85)/3)*2.98;
-                double height = (double) faker.random().nextInt(1, 2)*1.25;
-                String position = postions[faker.random().nextInt(0, 3)];
-                Player newPlayer = new Player(first_name, last_name, email, age, position, weight, height);
-                ManagementServices managementServices = new Management(new ManagementQueries(jdbi));
-                managementServices.insertPlayerRecord(newPlayer);
-            }
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        for (int i = 0; i < numberOfPlayers; i++) {
+            String first_name = faker.name().firstName();
+            String last_name = faker.name().lastName();
+            String email = first_name.toLowerCase() + last_name.toLowerCase() + "@gmail.com";
+            int age = faker.random().nextInt(17, 35);
+            double weight = (double) (faker.random().nextInt(50, 85)/3)*2.98;
+            double height = (double) faker.random().nextInt(1, 2)*1.25;
+            String position = postions[faker.random().nextInt(0, 3)];
+            Player newPlayer = new Player(first_name, last_name, email, age, position, weight, height);
+            ManagementServices managementServices = new Management(new ManagementQueries(jdbi));
+            managementServices.insertPlayerRecord(newPlayer);
         }
 
 
