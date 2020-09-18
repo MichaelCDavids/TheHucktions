@@ -38,6 +38,11 @@ public class ManagementQueries {
         return true;
     }
 
+    public boolean insertSelectedPlayer(int id) {
+        jdbi.useHandle((h) -> h.execute("insert into selected ( player_id) values (?)", id));
+        System.out.println("selected player id:" + id);
+        return true;
+    }
 
 
     public Player getById(int id) {
@@ -72,7 +77,7 @@ public class ManagementQueries {
 
     public List<Player> getSelectedPlayers() {
         jdbi.open();
-        return jdbi.withHandle((h) -> h.createQuery("select player.first_name, player.last_name, player.field_position from selected join player on selected.player_id=player.id")
+        return jdbi.withHandle((h) -> h.createQuery("select player.id, player.first_name, player.last_name, player.field_position from selected join player on selected.player_id=player.id")
                 .mapToBean(Player.class)
                 .list());
     }
@@ -90,7 +95,6 @@ public class ManagementQueries {
     }
 
 
-
     public boolean updateBookingsRecord(int id, Bookings bookings) {
         return true;
     }
@@ -100,9 +104,35 @@ public class ManagementQueries {
     }
 
     public boolean updatePlayerRecord(int id, Player player) {
-//        TODO: update player row
+//
+        String update = "update player set first_name=?, last_name=? , email=?, age=?,field_position=?, weight=?,height=?, yellow_cards=?, red_cards=?, goals=?, assists=?, clean_sheets=? where id=?";
         jdbi.open();
-        jdbi.useTransaction(handle -> handle.execute(""));
+
+        System.out.println("string"+player.getId());
+        System.out.println("rael"+player.getRealId());
+        jdbi.useTransaction(handle -> handle.createUpdate(update)
+                .bind(0, player.getFirstName())
+                .bind(1, player.getLastName())
+                .bind(2, player.getEmail())
+                .bind(3, player.getAge())
+                .bind(4, player.getFieldPosition())
+                .bind(5, player.getWeight())
+                .bind(6, player.getHeight())
+                .bind(7, player.getYellowCards())
+                .bind(8, player.getRedCards())
+                .bind(9, player.getGoals())
+                .bind(10, player.getAssists())
+                .bind(11, player.getCleanSheets())
+                .bind(12, player.getRealId()).execute()
+        );
+
+//        String queryUpdate = "update player ;
+
+//        jdbi.withHandle(h -> {
+//            return h.execute(queryUpdate,  player.getFirstName(),player.getLastName(),player.getAge(),player.getEmail(),player.getFieldPosition(),player.getWeight(),player.getHeight(),player.getYellowCards());
+//        });
+        //        jdbi.useHandle(handle -> handle.execute(queryUpdate));
+//        jdbi.useTransaction(handle -> handle.create(queryUpdate));
         return true;
     }
 
@@ -117,6 +147,12 @@ public class ManagementQueries {
     public boolean deletePlayerRecord(int id) {
         jdbi.open();
         jdbi.useTransaction(handle -> handle.execute("delete from player where id=?", id));
+        return true;
+    }
+
+    public boolean deleteSelectedPlayers() {
+        jdbi.open();
+        jdbi.useTransaction(handle -> handle.execute("delete from selected"));
         return true;
     }
 }

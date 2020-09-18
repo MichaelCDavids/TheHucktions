@@ -176,7 +176,6 @@ public class App {
 
             }, new HandlebarsTemplateEngine());
 
-
             get("/select", (req, res) -> {
                 List<Player> players = managementServices.getAllPlayers();
                 Map<String, Object> map = new HashMap<>();
@@ -184,8 +183,6 @@ public class App {
                 return new ModelAndView(map, "select.handlebars");
 
             }, new HandlebarsTemplateEngine());
-
-
 
             get("/selected", (req, res) -> {
                 List<Player> players = managementServices.getSelectedPlayers();
@@ -229,10 +226,28 @@ public class App {
 
             post("/edit/:id", (req, res) -> {
                 int id = parseInt(req.params("id"));
-                Map<String, Object> map = new HashMap<>();
+                Player player = new Player();
+                String first_name = req.queryParams("name").toLowerCase();
+                String last_name = req.queryParams("surname").toLowerCase();
+                String newName = first_name.substring(0, 1).toUpperCase() + first_name.substring(1);
+                String newSurname = last_name.substring(0, 1).toUpperCase() + last_name.substring(1);
+                player.setId(req.params("id"));
+                player.setFirstName(newName);
+                player.setLastName(newSurname);
+                player.setEmail(req.queryParams("email"));
+                player.setAge(parseInt(req.queryParams("age")));
+                player.setHeight(Double.parseDouble(req.queryParams("height")));
+                player.setWeight(Double.parseDouble(req.queryParams("weight")));
+                player.setFieldPosition(req.queryParams("position"));
 
-                System.out.println(req.queryParams());
-                System.out.println(req.params("id"));
+                player.setAssists(Integer.parseInt(req.queryParams("assists")));
+                player.setCleanSheets(Integer.parseInt(req.queryParams("cleanSheets")));
+                player.setGoals(Integer.parseInt(req.queryParams("goals")));
+                player.setYellowCards(Integer.parseInt(req.queryParams("yellowCards")));
+                player.setRedCards(Integer.parseInt(req.queryParams("redCards")));
+
+                managementServices.updatePlayerRecord(id,player);
+                Map<String, Object> map = new HashMap<>();
 
                 res.redirect("/players");
                 return null;
@@ -265,8 +280,10 @@ public class App {
                 List<Player> selected = new ArrayList<>();
                 System.out.println(req.queryParams());
                 for (String item: req.queryParams()) {
-                    //managementServices.insertPlayerRecord(player);
                     selected.add(managementServices.getPlayerRecord(Integer.parseInt(item)));
+                }
+                for (Player item: selected) {
+                    managementServices.insertSelectedPlayer(Integer.parseInt(item.getId()));
                 }
                 System.out.println(selected.size());
                 Map<String, Object> map = new HashMap<>();
@@ -276,6 +293,16 @@ public class App {
                 return null;
 
             }, new HandlebarsTemplateEngine());
+
+            get("/clear", (req, res) -> {
+                managementServices.deleteSelectedPlayers();
+                Map<String, Object> map = new HashMap<>();
+                return new ModelAndView(map, "staff.handlebars");
+
+            }, new HandlebarsTemplateEngine());
+
+
+
 
         } catch (Exception ex) {
             ex.printStackTrace();

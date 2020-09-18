@@ -16,6 +16,11 @@ public class Management implements ManagementServices {
     }
 
     @Override
+    public boolean insertSelectedPlayer(int id) {
+        return managementQueries.insertSelectedPlayer(id);
+    }
+
+    @Override
     public Player getPlayerRecord(int id) {
         return managementQueries.getPlayerRecord(id);
     }
@@ -84,6 +89,11 @@ public class Management implements ManagementServices {
     @Override
     public boolean deleteMatchRecord(int id) {
         return managementQueries.deleteMatchRecord(id);
+    }
+
+    @Override
+    public boolean deleteSelectedPlayers() {
+        return managementQueries.deleteSelectedPlayers();
     }
 
     @Override

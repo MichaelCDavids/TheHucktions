@@ -11,6 +11,7 @@ public interface ManagementServices {
     boolean insertPlayerRecord(Player player);
     boolean insertMatchRecord(Match match);
     boolean insertBookingRecord(Bookings bookings);
+    boolean insertSelectedPlayer(int id);
 
     List<Player> getAllPlayers();
     Player getPlayerRecord(int id);
@@ -27,4 +28,5 @@ public interface ManagementServices {
     boolean deletePlayerRecord(int id);
     boolean deleteBookingRecord(int id);
     boolean deleteMatchRecord(int id);
+    boolean deleteSelectedPlayers();
 }

@@ -84,6 +84,10 @@ public class Player {
         return id;
     }
 
+    public int getRealId() {
+        return Integer.parseInt(id);
+    }
+
     public void setId(String id) {
         this.id = id;
     }
